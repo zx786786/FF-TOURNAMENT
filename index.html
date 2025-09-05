@@ -146,17 +146,45 @@ Match 9: Team C vs Team A
 const STORAGE_KEY = 'ff_cs_state_v5';
 const PASSWORD = 'zainul@1234786';
 
-const DEFAULT = {
-  bannerData: null,
+const DEFAULT ={
+bannerData:  "https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp",
   teams: [
-    makeTeam('Team A'),
-    makeTeam('Team B'),
-    makeTeam('Team C')
+    // Add custom stats for each team here!
+    {
+      id: 'id_teamA',
+      name: 'Team A',
+      matches: 4,
+      won: 3,
+      lost: 1,
+      rounds: 7,
+      kills: 12,
+      pts: 25 // pts is auto-calculated, but you can set initial value
+    },
+    {
+      id: 'id_teamB',
+      name: 'Team B',
+      matches: 3,
+      won: 1,
+      lost: 2,
+      rounds: 5,
+      kills: 9,
+      pts: 17
+    },
+    {
+      id: 'id_teamC',
+      name: 'Team C',
+      matches: 3,
+      won: 0,
+      lost: 3,
+      rounds: 3,
+      kills: 5,
+      pts: 8
+    }
   ],
   players: [
-    {id: idGen(), name:'Player 1 (A)', kills:0},
-    {id: idGen(), name:'Player 2 (B)', kills:0},
-    {id: idGen(), name:'Player 3 (C)', kills:0}
+    {id: 'id_p1', name:'Rahul (Team A)', kills:7},
+    {id: 'id_p2', name:'Sumit (Team B)', kills:5},
+    {id: 'id_p3', name:'Aman (Team C)', kills:2}
   ],
   fixtures: null
 };
@@ -168,17 +196,7 @@ function makeTeam(name){
 }
 
 function loadState(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return JSON.parse(JSON.stringify(DEFAULT));
-    const parsed = JSON.parse(raw);
-    parsed.teams = parsed.teams || DEFAULT.teams;
-    parsed.players = parsed.players || DEFAULT.players;
-    return parsed;
-  }catch(e){
-    console.warn('load fail', e);
-    return JSON.parse(JSON.stringify(DEFAULT));
-  }
+  return JSON.parse(JSON.stringify(DEFAULT)); // Always use DEFAULT data!
 }
 function saveState(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
