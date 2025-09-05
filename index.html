@@ -17,11 +17,10 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* Header / banner */
   .banner {
     position:relative; height:220px; display:flex; align-items:center; justify-content:center;
-    background: url('https://i.ibb.co/k3yVNRR/freefire-banner.jpg') center/cover no-repeat;
-    cursor:pointer;
+    background: url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp') center/cover no-repeat;
+    cursor:default;
   }
   .banner::after{ content:""; position:absolute; inset:0;
     background: linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25)); }
@@ -31,17 +30,6 @@
 
   .wrap{max-width:760px; margin:18px auto; padding:0 14px;}
 
-  /* controls */
-  .controls{display:flex; gap:10px; align-items:center; margin:10px 0 14px; flex-wrap:wrap; justify-content:center}
-  .btn{
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    color:white; border:0; padding:9px 12px; border-radius:999px; font-weight:700; cursor:pointer;
-    box-shadow:0 6px 20px rgba(255,60,60,0.14);
-  }
-  .btn.secondary{ background:transparent; border:1px solid rgba(255,255,255,0.08); color:var(--muted); }
-  .small{font-size:13px; padding:8px 10px}
-
-  /* cards */
   .card{
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     border-radius:var(--radius); padding:12px; margin-bottom:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6);
@@ -62,7 +50,6 @@
     box-shadow:0 6px 16px rgba(255,60,60,0.12); text-align:center;
   }
 
-  /* top killers */
   .players{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
   .player-row{
     display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px;
@@ -71,18 +58,28 @@
   .player-row .pname{ font-weight:700; }
   .player-row .pkill{ font-weight:800; color:#ffd6d6; margin-right:8px; }
 
-  /* fixtures */
   .fixtures{ margin-top:12px; text-align:left; color:var(--muted); font-size:14px; line-height:1.6;
     background:rgba(0,0,0,0.18); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03);
   }
 
-  /* editing visuals */
-  [contenteditable="true"]{ outline: 2px dashed rgba(255,120,120,0.16); outline-offset:4px; border-radius:6px; padding:2px; }
-  input[type="file"]{ display:none; }
+  .fixtures ol {
+    margin:0;
+    padding-left:24px;
+  }
+  .fixtures li {
+    font-size:16px;
+    margin-bottom:7px;
+    line-height:1.7;
+  }
+  .fixtures strong {
+    font-weight:800;
+    color:#fff;
+    letter-spacing:0.5px;
+  }
 
-  /* responsive */
   @media (max-width:420px){
     .field{ flex-basis:100%; }
+    .fixtures li { font-size:14px; }
   }
 </style>
 </head>
@@ -94,398 +91,145 @@
     </div>
   </div>
 
-  <!-- hidden file input for gallery upload -->
-  <input id="bannerFile" type="file" accept="image/*">
-
   <div class="wrap">
-    <div class="controls">
-      <button id="toggleEdit" class="btn small">Enable Edit Mode</button>
-      <button id="saveSort" class="btn small">Save & Sort</button>
-      <button id="changeBannerBtn" class="btn secondary small">Change Banner (URL)</button>
-      <button id="addTeamBtn" class="btn secondary small">+ Add Team</button>
-    </div>
-
-    <!-- team cards container -->
     <div id="teamsContainer"></div>
 
-    <!-- Top Killers -->
     <div class="card" id="playersCard">
       <div class="team-head">
         <div>
           <div style="font-weight:800;font-size:16px">🔥 Tournament Top Killers</div>
-          <div style="color:var(--muted);font-size:13px">Add players, update kills — list sorts automatically</div>
+          <div style="color:var(--muted);font-size:13px">Best players this season</div>
         </div>
-        <div><button id="addPlayer" class="btn small">+ Add Player</button></div>
       </div>
       <div id="playersList" class="players" style="margin-top:10px;"></div>
     </div>
 
-    <!-- Fixtures -->
     <div class="card">
       <div style="font-weight:800;font-size:16px">📅 Fixtures (9 Matches)</div>
-      <div class="fixtures" id="fixturesBox" contenteditable="false">
-Match 1: Team A vs Team B
-Match 2: Team B vs Team C
-Match 3: Team C vs Team A
-Match 4: Team A vs Team B
-Match 5: Team B vs Team C
-Match 6: Team C vs Team A
-Match 7: Team A vs Team B
-Match 8: Team B vs Team C
-Match 9: Team C vs Team A
+      <div class="fixtures" id="fixturesBox">
+        <ol>
+          <li>Match 1: <strong>Team A vs Team B</strong></li>
+          <li>Match 2: <strong>Team B vs Team C</strong></li>
+          <li>Match 3: <strong>Team C vs Team A</strong></li>
+          <li>Match 4: <strong>Team A vs Team B</strong></li>
+          <li>Match 5: <strong>Team B vs Team C</strong></li>
+          <li>Match 6: <strong>Team C vs Team A</strong></li>
+          <li>Match 7: <strong>Team A vs Team B</strong></li>
+          <li>Match 8: <strong>Team B vs Team C</strong></li>
+          <li>Match 9: <strong>Team C vs Team A</strong></li>
+        </ol>
       </div>
     </div>
-
     <div style="height:26px"></div>
-    <div class="center" style="color:var(--muted);font-size:13px">Save this file and open in browser. Data saved only on this device.</div>
+    <div class="center" style="color:var(--muted);font-size:13px">Tournament data is fixed. For changes, update code on GitHub.</div>
     <div style="height:36px"></div>
   </div>
 
 <script>
-/* ---------- state + storage ---------- */
-const STORAGE_KEY = 'ff_cs_state_v5';
-const PASSWORD = 'zainul@1234786';
+function computePoints(t){ return t.won*3 + t.rounds + t.kills; }
 
-const DEFAULT ={
-bannerData:  "https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp",
+const DEFAULT = {
   teams: [
-    // Add custom stats for each team here!
     {
       id: 'id_teamA',
       name: 'Team A',
-      matches: 4,
-      won: 3,
-      lost: 1,
-      rounds: 7,
-      kills: 12,
-      pts: 25 // pts is auto-calculated, but you can set initial value
+      matches: 0,
+      won: 0,
+      lost: 0,
+      rounds: 0,
+      kills: 0
     },
     {
       id: 'id_teamB',
       name: 'Team B',
-      matches: 3,
-      won: 1,
-      lost: 2,
-      rounds: 5,
-      kills: 9,
-      pts: 17
+      matches: 0,
+      won: 0,
+      lost: 0,
+      rounds: 0,
+      kills: 0
     },
     {
       id: 'id_teamC',
       name: 'Team C',
-      matches: 3,
+      matches: 0,
       won: 0,
-      lost: 3,
-      rounds: 3,
-      kills: 5,
-      pts: 8
+      lost: 0,
+      rounds: 0,
+      kills: 0
     }
   ],
   players: [
-    {id: 'id_p1', name:'Rahul (Team A)', kills:7},
-    {id: 'id_p2', name:'Sumit (Team B)', kills:5},
-    {id: 'id_p3', name:'Aman (Team C)', kills:2}
-  ],
-  fixtures: null
+    {id: 'id_p1', name:'BHURA (Team A)', kills:0},
+    {id: 'id_p2', name:'SAHIL (Team A)', kills:0},
+    {id: 'id_p3', name:' (Team A)', kills:0},
+    {id: 'id_p4', name:' (Team A)', kills:0},
+    {id: 'id_p4', name:' (Team B)', kills:0},
+    {id: 'id_p4', name:' (Team B)', kills:0},
+    {id: 'id_p4', name:' (Team B)', kills:0},
+    {id: 'id_p4', name:' (Team B)', kills:0},
+    {id: 'id_p4', name:'ZAINUL (Team C)', kills:0},
+    {id: 'id_p4', name:'ARSHAD (Team C)', kills:0},
+    {id: 'id_p4', name:'AKBAR (Team C)', kills:0},
+    {id: 'id_p4', name:'ABDUL (Team C)', kills:0},
+  ]
 };
 
-function idGen(){ return 'id_'+Math.random().toString(36).slice(2,9); }
-
-function makeTeam(name){
-  return { id: idGen(), name: name, matches:0, won:0, lost:0, rounds:0, kills:0, pts:0 };
-}
-
-function loadState(){
-  return JSON.parse(JSON.stringify(DEFAULT)); // Always use DEFAULT data!
-}
-function saveState(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-/* ---------- global refs ---------- */
-const bannerEl = document.getElementById('banner');
-const bannerFile = document.getElementById('bannerFile');
-const toggleEditBtn = document.getElementById('toggleEdit');
-const saveSortBtn = document.getElementById('saveSort');
-const changeBannerBtn = document.getElementById('changeBannerBtn');
-const addTeamBtn = document.getElementById('addTeamBtn');
 const teamsContainer = document.getElementById('teamsContainer');
 const playersList = document.getElementById('playersList');
-const fixturesBox = document.getElementById('fixturesBox');
-const addPlayerBtn = document.getElementById('addPlayer');
 
-let state = loadState();
-let editMode = false;
-
-/* ---------- banner handlers ---------- */
-function applyBanner(){
-  if(state.bannerData){
-    bannerEl.style.backgroundImage = `url('${state.bannerData}')`;
-  }else{
-    bannerEl.style.backgroundImage = `url('https://i.ibb.co/k3yVNRR/freefire-banner.jpg')`;
-  }
-}
-bannerFile.addEventListener('change', e=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const r = new FileReader();
-  r.onload = () => {
-    state.bannerData = r.result;
-    applyBanner();
-    saveState();
-  };
-  r.readAsDataURL(f);
-});
-bannerEl.addEventListener('click', ()=> {
-  // open file chooser (upload from gallery)
-  bannerFile.click();
-});
-
-/* Change banner button -> allow URL entry */
-changeBannerBtn.addEventListener('click', ()=>{
-  if(!editMode){ alert('Enable Edit Mode first'); return; }
-  const url = prompt('Enter banner image URL (or Cancel to upload from device):');
-  if(url){
-    state.bannerData = url.trim();
-    applyBanner();
-    saveState();
-  }else{
-    // if cancelled, trigger file chooser
-    bannerFile.click();
-  }
-});
-
-/* ---------- UI render ---------- */
-function computePoints(t){
-  const wins = Number(t.won||0);
-  const rounds = Number(t.rounds||0);
-  const kills = Number(t.kills||0);
-  return wins*3 + rounds + kills;
+function escapeHtml(text){
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function renderTeams(){
-  // compute points for all teams
-  state.teams.forEach(t => t.pts = computePoints(t));
-  // sort by pts desc, tie-breaker rounds, kills
-  state.teams.sort((a,b)=> b.pts - a.pts || b.rounds - a.rounds || b.kills - a.kills);
+  DEFAULT.teams.forEach(t => t.pts = computePoints(t));
+  DEFAULT.teams.sort((a,b)=> b.pts - a.pts || b.rounds - a.rounds || b.kills - a.kills);
 
   teamsContainer.innerHTML = '';
-  state.teams.forEach((team, idx) => {
+  DEFAULT.teams.forEach((team, idx) => {
     const teamCard = document.createElement('div');
     teamCard.className = 'card';
-    teamCard.dataset.id = team.id;
     teamCard.innerHTML = `
       <div class="team-head">
         <div>
-          <div class="team-name" data-field="name" contenteditable="${editMode}">${escapeHtml(team.name)}</div>
+          <div class="team-name">${escapeHtml(team.name)}</div>
           <div style="color:var(--muted);font-size:13px">Position: <strong>${idx+1}</strong></div>
         </div>
         <div class="points">Pts <div style="font-size:18px">${team.pts}</div></div>
       </div>
-
       <div class="field-row">
-        <div class="field"><label>Matches</label><div class="value" data-field="matches" contenteditable="${editMode}">${team.matches}</div></div>
-        <div class="field"><label>Won</label><div class="value" data-field="won" contenteditable="${editMode}">${team.won}</div></div>
+        <div class="field"><label>Matches</label><div class="value">${team.matches}</div></div>
+        <div class="field"><label>Won</label><div class="value">${team.won}</div></div>
       </div>
-
       <div class="field-row" style="margin-top:8px">
-        <div class="field"><label>Lost</label><div class="value" data-field="lost" contenteditable="${editMode}">${team.lost}</div></div>
-        <div class="field"><label>Rounds Won</label><div class="value" data-field="rounds" contenteditable="${editMode}">${team.rounds}</div></div>
+        <div class="field"><label>Lost</label><div class="value">${team.lost}</div></div>
+        <div class="field"><label>Rounds Won</label><div class="value">${team.rounds}</div></div>
       </div>
-
       <div class="field-row" style="margin-top:8px">
-        <div class="field" style="flex-basis:100%"><label>Kills</label><div class="value" data-field="kills" contenteditable="${editMode}">${team.kills}</div></div>
+        <div class="field" style="flex-basis:100%"><label>Kills</label><div class="value">${team.kills}</div></div>
       </div>
     `;
     teamsContainer.appendChild(teamCard);
   });
-
-  // make fields listen for blur/input updates
-  attachTeamFieldHandlers();
-  updateSummary();
 }
 
 function renderPlayers(){
-  // sort players by kills desc
-  state.players.sort((a,b)=> b.kills - a.kills);
+  DEFAULT.players.sort((a,b)=> b.kills - a.kills);
   playersList.innerHTML = '';
-  state.players.forEach(p=>{
+  DEFAULT.players.forEach(p=>{
     const row = document.createElement('div');
     row.className = 'player-row';
-    row.dataset.id = p.id;
     row.innerHTML = `
-      <div style="display:flex;gap:10px;align-items:center">
-        <div class="pname" data-field="name" contenteditable="${editMode}">${escapeHtml(p.name)}</div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="pkill" data-field="kills" contenteditable="${editMode}">${p.kills}</div>
-        <button class="btn secondary small remove-player" data-id="${p.id}">Remove</button>
-      </div>
+      <div class="pname">${escapeHtml(p.name)}</div>
+      <div class="pkill">${p.kills}</div>
     `;
     playersList.appendChild(row);
   });
-  attachPlayerHandlers();
-}
-
-function renderFixtures(){
-  if(state.fixtures) fixturesBox.textContent = state.fixtures;
-  fixturesBox.contentEditable = editMode ? "true" : "false";
-}
-
-/* ---------- events: update contenteditable fields ---------- */
-function attachTeamFieldHandlers(){
-  teamsContainer.querySelectorAll('[data-field]').forEach(el=>{
-    // on blur update state
-    el.onblur = () => {
-      const field = el.dataset.field;
-      const teamCard = el.closest('.card');
-      const id = teamCard.dataset.id;
-      const t = state.teams.find(x=>x.id===id);
-      if(!t) return;
-      let val = el.textContent.trim();
-      if(field === 'name'){
-        t.name = val || 'Team';
-      } else {
-        // numeric fields
-        const n = parseInt(val.replace(/\D/g,''),10);
-        t[field] = isNaN(n)?0:n;
-      }
-      // update derived fields (if you want matches auto-calc, uncomment below)
-      // t.matches = Number(t.won||0) + Number(t.lost||0);
-      saveState();
-      renderTeams(); // re-render to update points & order if changed
-    };
-    // allow pressing Enter to blur (mobile friendly)
-    el.onkeydown = (e)=>{ if(e.key==='Enter'){ e.preventDefault(); el.blur(); } };
-  });
-}
-
-function attachPlayerHandlers(){
-  // name and kills updates
-  playersList.querySelectorAll('[data-field]').forEach(el=>{
-    el.onblur = () => {
-      const field = el.dataset.field;
-      const row = el.closest('.player-row');
-      const id = row.dataset.id;
-      const p = state.players.find(x=>x.id===id);
-      if(!p) return;
-      const val = el.textContent.trim();
-      if(field === 'name'){ p.name = val || 'Player'; }
-      else { const n = parseInt(val.replace(/\D/g,''),10); p.kills = isNaN(n)?0:n; }
-      saveState();
-      renderPlayers();
-    };
-    el.onkeydown = (e)=>{ if(e.key==='Enter'){ e.preventDefault(); el.blur(); } };
-  });
-
-  // remove buttons
-  playersList.querySelectorAll('.remove-player').forEach(btn=>{
-    btn.onclick = ()=>{
-      if(!confirm('Remove this player?')) return;
-      const id = btn.dataset.id;
-      const idx = state.players.findIndex(p=>p.id===id);
-      if(idx>=0){ state.players.splice(idx,1); saveState(); renderPlayers(); }
-    };
-  });
-}
-
-/* ---------- helpers ---------- */
-function escapeHtml(text){
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-/* ---------- edit mode toggle ---------- */
-toggleEditBtn.addEventListener('click', ()=>{
-  if(!editMode){
-    const pass = prompt('Enter password to enable Edit Mode:');
-    if(pass !== PASSWORD){ alert('❌ Wrong password'); return; }
-    editMode = true;
-    toggleEditBtn.textContent = 'Disable Edit Mode';
-  } else {
-    // disabling edit mode
-    editMode = false;
-    toggleEditBtn.textContent = 'Enable Edit Mode';
-    // when disabling, ensure fixtures saved
-    state.fixtures = fixturesBox.textContent.trim();
-    saveState();
-  }
-  // update elements editable state
-  setEditableUI(editMode);
-});
-
-function setEditableUI(on){
-  // re-render to apply contenteditable attribute
-  renderTeams();
-  renderPlayers();
-  renderFixtures();
-}
-
-/* ---------- add team / player ---------- */
-addTeamBtn.addEventListener('click', ()=>{
-  if(!editMode){ alert('Enable Edit Mode first'); return; }
-  const name = prompt('Enter new team name (or leave to auto name):');
-  const nm = name && name.trim() ? name.trim() : `Team ${String.fromCharCode(65 + state.teams.length)}`;
-  state.teams.push(makeTeam(nm));
-  saveState();
-  renderTeams();
-});
-
-addPlayerBtn.addEventListener('click', ()=>{
-  if(!editMode){ alert('Enable Edit Mode first'); return; }
-  const name = prompt('Player name (example: Rahul (Team A))','New Player');
-  if(!name) return;
-  const kills = parseInt(prompt('Kills for this player','0')||'0',10) || 0;
-  state.players.push({id:idGen(), name:name.trim(), kills:kills});
-  saveState();
-  renderPlayers();
-});
-
-/* ---------- save & sort ---------- */
-saveSortBtn.addEventListener('click', ()=>{
-  // auto-fix matches (matches = won + lost) to avoid mistakes
-  state.teams.forEach(t => {
-    t.won = Number(t.won)||0;
-    t.lost = Number(t.lost)||0;
-    t.matches = t.won + t.lost;
-    t.rounds = Number(t.rounds)||0;
-    t.kills = Number(t.kills)||0;
-    t.pts = computePoints(t);
-  });
-  // sort and persist
-  state.teams.sort((a,b)=> b.pts - a.pts || b.rounds - a.rounds || b.kills - a.kills);
-  saveState();
-  renderTeams();
-  renderPlayers();
-  alert('Saved & Sorted by points');
-});
-
-/* ---------- fixtures editing ---------- */
-fixturesBox.addEventListener('input', ()=>{
-  // live update while in edit mode (but saved when toggling/Save & Sort)
-  if(editMode) state.fixtures = fixturesBox.textContent;
-});
-
-/* ---------- initial render ---------- */
-function updateSummary(){
-  const sub = document.getElementById('bannerSub');
-  const teamCount = state.teams.length;
-  sub.textContent = `${teamCount} Teams • 9 Matches • Auto Points`;
 }
 
 function init(){
-  // ensure each team has id (back-compat)
-  state.teams = state.teams.map(t => t.id? t : makeTeam(t.name || 'Team'));
-
-  // restore saved fixtures if 
-  if(state.fixtures) fixturesBox.textContent = state.fixtures;
-
-  applyBanner();
   renderTeams();
   renderPlayers();
-  renderFixtures();
 }
 init();
 </script>
