@@ -7,89 +7,57 @@
 <style>
   :root{
     --bg:#0b0b0f; --card:#101014; --muted:#cfc8d9;
-    --accent:#ff3b3b; --accent-2:#ff7b7b; --glass: rgba(255,255,255,0.02);
+    --accent:#ff3b3b; --glass: rgba(255,255,255,0.02);
     --radius:14px;
   }
-  *{box-sizing:border-box}
   body{
     margin:0; font-family:Inter, system-ui, Roboto, Arial, sans-serif;
     background: linear-gradient(180deg,#060607,#0b0b0f 100%); color:#fff;
-    -webkit-font-smoothing:antialiased;
   }
+  .banner{position:relative;height:220px;display:flex;align-items:center;justify-content:center;
+    background:url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp') center/cover no-repeat;}
+  .banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.45),rgba(0,0,0,0.25));}
+  .banner .title{position:relative;z-index:2;text-align:center;}
+  .banner h1{margin:0;font-size:20px;font-weight:800;text-transform:uppercase;}
+  .banner p{margin:6px 0 0;color:#aaa;font-size:13px;}
 
-  .banner {
-    position:relative; height:220px; display:flex; align-items:center; justify-content:center;
-    background: url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp') center/cover no-repeat;
-    cursor:default;
-  }
-  .banner::after{ content:""; position:absolute; inset:0;
-    background: linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25)); }
-  .banner .title{ position:relative; z-index:2; text-align:center; }
-  .banner h1{ margin:0; font-size:20px; font-weight:800; text-transform:uppercase; letter-spacing:1px; }
-  .banner p{ margin:6px 0 0; color:var(--muted); font-size:13px; }
+  .wrap{max-width:760px;margin:18px auto;padding:0 14px;}
+  .card{background:rgba(255,255,255,0.02);border-radius:14px;padding:12px;margin-bottom:12px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);}
+  .team-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .team-name{font-weight:800;font-size:18px;}
+  .field-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .field{flex:1 1 140px;background:var(--glass);padding:12px;border-radius:10px;font-size:14px;
+    border:1px solid rgba(255,255,255,0.03);}
+  .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;}
+  .field .value{font-weight:700;font-size:16px;}
+  .points{background:linear-gradient(90deg,#ff7b7b,#ff3b3b);padding:10px 14px;border-radius:12px;font-weight:800;
+    box-shadow:0 6px 16px rgba(255,60,60,0.12);text-align:center;}
 
-  .wrap{max-width:760px; margin:18px auto; padding:0 14px;}
+  .players{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+  .player-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;
+    border-radius:10px;background:rgba(0,0,0,0.25);}
+  .player-row .pname{font-weight:700;}
+  .player-row .pkill{font-weight:800;color:#ffd6d6;margin-right:8px;}
 
-  .card{
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:var(--radius); padding:12px; margin-bottom:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6);
-    border:1px solid rgba(255,255,255,0.03);
-  }
-  .team-head{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
-  .team-name{ font-weight:800; font-size:18px; }
-  .field-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-  .field{
-    flex:1 1 140px; background:var(--glass); padding:12px;border-radius:10px; font-size:14px;
-    border:1px solid rgba(255,255,255,0.03); min-height:46px;
-  }
-  .field label{ display:block; font-size:11px; color:var(--muted); margin-bottom:6px; }
-  .field .value{ font-weight:700; font-size:16px; color:var(--text); }
+  .fixtures{margin-top:12px;text-align:left;color:var(--muted);font-size:14px;line-height:1.6;
+    background:rgba(0,0,0,0.18);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
+  .fixtures ol{margin:0;padding-left:24px;}
+  .fixtures li{font-size:16px;margin-bottom:7px;line-height:1.7;}
+  .fixtures strong{font-weight:800;color:#fff;}
 
-  .points{
-    background:linear-gradient(90deg,#ff7b7b,#ff3b3b); padding:10px 14px; border-radius:12px; font-weight:800;
-    box-shadow:0 6px 16px rgba(255,60,60,0.12); text-align:center;
-  }
-
-  .players{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-  .player-row{
-    display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px;
-    border-radius:10px; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.02);
-  }
-  .player-row .pname{ font-weight:700; }
-  .player-row .pkill{ font-weight:800; color:#ffd6d6; margin-right:8px; }
-
-  .fixtures{ margin-top:12px; text-align:left; color:var(--muted); font-size:14px; line-height:1.6;
-    background:rgba(0,0,0,0.18); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03);
-  }
-
-  .fixtures ol {
-    margin:0;
-    padding-left:24px;
-  }
-  .fixtures li {
-    font-size:16px;
-    margin-bottom:7px;
-    line-height:1.7;
-  }
-  .fixtures strong {
-    font-weight:800;
-    color:#fff;
-    letter-spacing:0.5px;
-  }
-
-  @media (max-width:420px){
-    .field{ flex-basis:100%; }
-    .fixtures li { font-size:14px; }
-  }
+  /* Golden Join button */
+  .join-btn{position:fixed;top:20px;right:20px;padding:15px 30px;
+    background:linear-gradient(45deg,#ffd700,#ffae00);color:#fff;font-size:20px;font-weight:bold;
+    border-radius:10px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.4);z-index:9999;}
+  .join-btn.full{background:linear-gradient(45deg,#777,#555);cursor:not-allowed;pointer-events:none;}
 </style>
 </head>
 <body>
-  <div class="banner" id="banner">
-    <div class="title">
-      <h1 id="bannerTitle">FREE FIRE CS TOURNAMENT</h1>
-      <p id="bannerSub">3 Teams � 9 Matches � Auto Points</p>
-    </div>
-  </div>
+  <div class="banner"><div class="title">
+    <h1>FREE FIRE CS TOURNAMENT</h1>
+    <p>3 Teams • 9 Matches • Auto Points</p>
+  </div></div>
 
   <div class="wrap">
     <div id="teamsContainer"></div>
@@ -106,7 +74,7 @@
 
     <div class="card">
       <div style="font-weight:800;font-size:16px">📅 Fixtures (9 Matches)</div>
-      <div class="fixtures" id="fixturesBox">
+      <div class="fixtures">
         <ol>
           <li>Match 1: <strong>Team A vs Team B</strong></li>
           <li>Match 2: <strong>Team B vs Team C</strong></li>
@@ -117,128 +85,121 @@
           <li>Match 7: <strong>Team A vs Team B</strong></li>
           <li>Match 8: <strong>Team B vs Team C</strong></li>
           <li>Match 9: <strong>Team C vs Team A</strong></li>
- 
-    <div style="font-weight:1000;font-size:16px"> 🌕 TERMS AND CONDITIONS</div>
-    <div class="fixtures" id="fixturesBox">
-      <ol>
-        <li>DATE: <strong>FROM [ 6/9/25 ] TO [ 8/9/25 ]</strong></li>
-        <li>TIMING: <strong>FROM [ 9:00 PM ] TO [11:00 PM ]</strong></li>
-        <li>
-          <span style="font-weight:400; color:#d6d1e2;">POINTS SYSTEM :</span><br>
-          <strong>�FOR BOOYAH - 3 POINT</strong><br>
-          <strong>�FOR KILL - 1 POINT</strong><br><strong>�FOR ROUND WIN- 1 POINT</strong>
-        </li>
-        <li>ENTRY FEE: <strong> ?25 Per Person</strong></li>
-        <li>For Further detail: <strong> Contact us on 9837172826/9627908856</strong></li>
-        <li>For Joinning : <a href="upi://pay?pa=9837172826@ybl&pn=Zainul&am=25&cu=INR"><strong>Click here to Register</strong></a></li>
-      </ol>
+        </ol>
+      </div>
+
+      <div style="font-weight:1000;font-size:16px"> 🌕 TERMS AND CONDITIONS</div>
+      <div class="fixtures">
+        <ol>
+          <li>DATE: <strong>FROM [ 6/9/25 ] TO [ 8/9/25 ]</strong></li>
+          <li>TIMING: <strong>FROM [ 9:00 PM ] TO [11:00 PM ]</strong></li>
+          <li>POINTS SYSTEM: <br>
+            <strong>• BOOYAH - 3 POINT</strong><br>
+            <strong>• KILL - 1 POINT</strong><br>
+            <strong>• ROUND WIN - 1 POINT</strong></li>
+          <li>ENTRY FEE: <strong> ₹25 Per Person</strong></li>
+          <li>Contact: <strong>9837172826 / 9627908856</strong></li>
+          <li>For Joinning : <a id="termsJoinLink" href="#">Click here to Join</a></li>
+        </ol>
+      </div>
     </div>
   </div>
-   <script>
-  function computePoints(t){ return t.won*3 + t.rounds + t.kills; }
 
-  const DEFAULT = {
+  <!-- Golden Join Button -->
+  <a href="#" class="join-btn" id="joinBtn">JOIN</a>
+
+<script>
+const UPI_LINK = "upi://pay?pa=9837172826@ybl&pn=Zainul&am=25&cu=INR";
+const MAX_PLAYERS = 12;
+
+const DEFAULT = {
   teams: [
-    {
-      id: 'id_teamA',
-      name: '[ Nalla Gang ]Team A',
-      matches: 0,
-      won: 0,
-      lost: 0,
-      rounds: 0,
-      kills: 0
-    },
-    {
-      id: 'id_teamB',
-      name: 'Team B',
-      matches: 0,
-      won: 0,
-      lost: 0,
-      rounds: 0,
-      kills: 0,
-    },
-    {
-      id: 'id_teamC',
-      name: '[ Zx Warrier ]Team C',
-      matches: 0,
-      won: 0,
-      lost: 0,
-      rounds: 0,
-      kills: 0
-    }
+    {id:'teamA',name:'[ Nalla Gang ]Team A',matches:0,won:0,lost:0,rounds:0,kills:0},
+    {id:'teamB',name:'Team B',matches:0,won:0,lost:0,rounds:0,kills:0},
+    {id:'teamC',name:'[ Zx Warrier ]Team C',matches:0,won:0,lost:0,rounds:0,kills:0}
   ],
   players: [
-    {id: 'id_p1', name:'BHURA (Team A)', kills:0},
-    {id: 'id_p2', name:'SAHIL (Team A)', kills:0},
-    {id: 'id_p3', name:'ALTAF (Team A)', kills:0},
-    {id: 'id_p4', name:'SAHID (Team A)', kills:0},
-    {id: 'id_p4', name:' (Team B)', kills:0},
-    {id: 'id_p4', name:' (Team B)', kills:0},
-    {id: 'id_p4', name:' (Team B)', kills:0},
-    {id: 'id_p4', name:' (Team B)', kills:0},
-    {id: 'id_p4', name:'ZAINUL (Team C)', kills:0},
-    {id: 'id_p4', name:'ARSHAD (Team C)', kills:0},
-    {id: 'id_p4', name:'AKBAR (Team C)', kills:0},
-    {id: 'id_p4', name:'ABDUL (Team C)', kills:0},
+    {name:'BHURA (Team A)',kills:0},{name:'SAHIL (Team A)',kills:0},
+    {name:'ALTAF (Team A)',kills:0},{name:'SAHID (Team A)',kills:0},
+    {name:'UDID (Team B)',kills:0},{name:'HDJD (Team B)',kills:0},
+    {name:'IDIR (Team B)',kills:0},{name:'BZJD (Team B)',kills:0},
+    {name:'ZAINUL (Team C)',kills:0},{name:'ARSHAD (Team C)',kills:0},
+    {name:'AKBAR (Team C)',kills:0},{name:'ABDUL (Team C)',kills:0}
   ]
 };
 
-const teamsContainer = document.getElementById('teamsContainer');
-const playersList = document.getElementById('playersList');
-
-function escapeHtml(text){
-  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
 function renderTeams(){
-  DEFAULT.teams.forEach(t => t.pts = computePoints(t));
-  DEFAULT.teams.sort((a,b)=> b.pts - a.pts || b.rounds - a.rounds || b.kills - a.kills);
-
-  teamsContainer.innerHTML = '';
-  DEFAULT.teams.forEach((team, idx) => {
-    const teamCard = document.createElement('div');
-    teamCard.className = 'card';
-    teamCard.innerHTML = `
+  const box=document.getElementById('teamsContainer');
+  box.innerHTML="";
+  DEFAULT.teams.forEach((t,idx)=>{
+    const card=document.createElement('div');
+    card.className="card";
+    card.innerHTML=`
       <div class="team-head">
         <div>
-          <div class="team-name">${escapeHtml(team.name)}</div>
-          <div style="color:var(--muted);font-size:13px">Position: <strong>${idx+1}</strong></div>
+          <div class="team-name">${t.name}</div>
+          <div style="color:#aaa;font-size:13px">Position: <strong>${idx+1}</strong></div>
         </div>
-        <div class="points">Pts <div style="font-size:18px">${team.pts}</div></div>
+        <div class="points">Pts <div style="font-size:18px">${t.won*3+t.rounds+t.kills}</div></div>
       </div>
       <div class="field-row">
-        <div class="field"><label>Matches</label><div class="value">${team.matches}</div></div>
-        <div class="field"><label>Won</label><div class="value">${team.won}</div></div>
+        <div class="field"><label>Matches</label><div class="value">${t.matches}</div></div>
+        <div class="field"><label>Won</label><div class="value">${t.won}</div></div>
       </div>
-      <div class="field-row" style="margin-top:8px">
-        <div class="field"><label>Lost</label><div class="value">${team.lost}</div></div>
-        <div class="field"><label>Rounds Won</label><div class="value">${team.rounds}</div></div>
+      <div class="field-row">
+        <div class="field"><label>Lost</label><div class="value">${t.lost}</div></div>
+        <div class="field"><label>Rounds Won</label><div class="value">${t.rounds}</div></div>
       </div>
-      <div class="field-row" style="margin-top:8px">
-        <div class="field" style="flex-basis:100%"><label>Kills</label><div class="value">${team.kills}</div></div>
-      </div>
-    `;
-    teamsContainer.appendChild(teamCard);
+      <div class="field-row">
+        <div class="field" style="flex-basis:100%"><label>Kills</label><div class="value">${t.kills}</div></div>
+      </div>`;
+    box.appendChild(card);
   });
 }
 
 function renderPlayers(){
-  DEFAULT.players.sort((a,b)=> b.kills - a.kills);
-  playersList.innerHTML = '';
+  const list=document.getElementById("playersList");
+  list.innerHTML="";
   DEFAULT.players.forEach(p=>{
-    const row = document.createElement('div');
-    row.className = 'player-row';
-    row.innerHTML = `
-      <div class="pname">${escapeHtml(p.name)}</div>
-      <div class="pkill">${p.kills}</div>
-    `;
-    playersList.appendChild(row);
+    const row=document.createElement("div");
+    row.className="player-row";
+    row.innerHTML=`<div class="pname">${p.name}</div><div class="pkill">${p.kills}</div>`;
+    list.appendChild(row);
   });
+}
+
+function isTournamentFull(){
+  // count only players with a non-empty name
+  const registered = DEFAULT.players.filter(p => p.name && p.name.trim() !== "").length;
+  return registered >= MAX_PLAYERS;
+}
+
+function handleJoinClick(e){
+  e.preventDefault();
+  if(isTournamentFull()){
+    alert("Seats are full! Try in the next tournament.");
+  } else {
+    window.open(UPI_LINK, "_blank");
+  }
+}
+
+function updateJoinButton(){
+  const btn = document.getElementById("joinBtn");
+  if(isTournamentFull()){
+    btn.classList.add("full");
+    btn.textContent = "FULL";
+  } else {
+    btn.classList.remove("full");
+    btn.textContent = "JOIN";
+  }
 }
 
 function init(){
   renderTeams();
   renderPlayers();
+  updateJoinButton();
+  document.getElementById("joinBtn").addEventListener("click",handleJoinClick);
+  document.getElementById("termsJoinLink").addEventListener("click",handleJoinClick);
 }
 init();
 </script>
