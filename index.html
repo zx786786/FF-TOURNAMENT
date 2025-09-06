@@ -87,7 +87,7 @@
   <div class="banner" id="banner">
     <div class="title">
       <h1 id="bannerTitle">FREE FIRE CS TOURNAMENT</h1>
-      <p id="bannerSub">3 Teams • 9 Matches • Auto Points</p>
+      <p id="bannerSub">3 Teams � 9 Matches � Auto Points</p>
     </div>
   </div>
 
@@ -117,20 +117,27 @@
           <li>Match 7: <strong>Team A vs Team B</strong></li>
           <li>Match 8: <strong>Team B vs Team C</strong></li>
           <li>Match 9: <strong>Team C vs Team A</strong></li>
-          <li> Date :<strong> 6/9/25 To 8/9/25</strong></li>
-          <li> Timing :<strong> 9:00 PM To 11:00 PM</strong></li>
-        </ol>
-      </div>
+ 
+    <div style="font-weight:1000;font-size:16px"> 🌕 TERMS AND CONDITIONS</div>
+    <div class="fixtures" id="fixturesBox">
+      <ol>
+        <li>DATE: <strong>FROM [ 6/9/25 ] TO [ 8/9/25 ]</strong></li>
+        <li>TIMING: <strong>FROM [ 9:00 PM ] TO [11:00 PM ]</strong></li>
+        <li>
+          <span style="font-weight:400; color:#d6d1e2;">POINTS SYSTEM :</span><br>
+          <strong>�FOR BOOYAH - 3 POINT</strong><br>
+          <strong>�FOR KILL - 1 POINT</strong><br><strong>�FOR ROUND WIN- 1 POINT</strong>
+        </li>
+        <li>ENTRY FEE: <strong> ?25 Per Person</strong></li>
+        <li>For Further detail: <strong> Contact us on 9837172826/9627908856</strong></li>
+        <li>For Joinning : <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpkzzI035WKMyvqDR_PRcGpEbqJLuD_kPOsELXiRCrNxLJJA/viewform?usp=header"><strong>Click here to Register</strong></a></li>
+      </ol>
     </div>
-    <div style="height:26px"></div>
-    <div class="center" style="color:var(--muted);font-size:13px">Tournament data is fixed. For changes, update code on GitHub.</div>
-    <div style="height:36px"></div>
   </div>
+   <script>
+  function computePoints(t){ return t.won*3 + t.rounds + t.kills; }
 
-<script>
-function computePoints(t){ return t.won*3 + t.rounds + t.kills; }
-
-const DEFAULT = {
+  const DEFAULT = {
   teams: [
     {
       id: 'id_teamA',
@@ -148,7 +155,7 @@ const DEFAULT = {
       won: 0,
       lost: 0,
       rounds: 0,
-      kills: 0
+      kills: 0,
     },
     {
       id: 'id_teamC',
