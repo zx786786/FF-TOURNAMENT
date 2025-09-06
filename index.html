@@ -109,7 +109,7 @@
   <a href="#" class="join-btn" id="joinBtn">JOIN</a>
 
 <script>
-const UPI_LINK = "upi://pay?pa=https://docs.google.com/forms/d/e/1FAIpQLSdpkzzI035WKMyvqDR_PRcGpEbqJLuD_kPOsELXiRCrNxLJJA/viewform?usp=header&pn=Zainul&am=2&cu=INR";
+const JOIN_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSdpkzzI035WKMyvqDR_PRcGpEbqJLuD_kPOsELXiRCrNxLJJA/viewform?usp=header";
 const MAX_PLAYERS = 12;
 
 const DEFAULT = {
@@ -128,19 +128,37 @@ const DEFAULT = {
   ]
 };
 
+function calculateTeamPoints(team){
+  return team.won * 3 + team.rounds + team.kills;
+}
+
 function renderTeams(){
   const box=document.getElementById('teamsContainer');
   box.innerHTML="";
-  DEFAULT.teams.forEach((t,idx)=>{
+
+  const sortedTeams=[...DEFAULT.teams].sort((a,b)=>calculateTeamPoints(b)-calculateTeamPoints(a));
+
+  const totalMatches = DEFAULT.teams.reduce((sum,t)=>sum+t.matches,0);
+  const allMatchesCompleted = (totalMatches >= 9);
+
+  sortedTeams.forEach((t,idx)=>{
+    const totalPoints=calculateTeamPoints(t);
+    let medal="";
+    if(idx===0) medal=" 🥇";
+    else if(idx===1) medal=" 🥈";
+    else if(idx===2) medal=" 🥉";
+
+    const crown = (allMatchesCompleted && idx===0) ? " 👑" : "";
+
     const card=document.createElement('div');
     card.className="card";
     card.innerHTML=`
       <div class="team-head">
         <div>
-          <div class="team-name">${t.name}</div>
+          <div class="team-name">${t.name}${medal}${crown}</div>
           <div style="color:#aaa;font-size:13px">Position: <strong>${idx+1}</strong></div>
         </div>
-        <div class="points">Pts <div style="font-size:18px">${t.won*3+t.rounds+t.kills}</div></div>
+        <div class="points">Pts <div style="font-size:18px">${totalPoints}</div></div>
       </div>
       <div class="field-row">
         <div class="field"><label>Matches</label><div class="value">${t.matches}</div></div>
@@ -160,16 +178,26 @@ function renderTeams(){
 function renderPlayers(){
   const list=document.getElementById("playersList");
   list.innerHTML="";
-  DEFAULT.players.forEach(p=>{
+
+  const sortedPlayers=DEFAULT.players
+    .filter(p=>p.name && p.name.trim()!=="")
+    .sort((a,b)=>b.kills-a.kills);
+
+  sortedPlayers.forEach((p,idx)=>{
+    let medal="";
+    if(idx===0) medal=" 🥇";
+    else if(idx===1) medal=" 🥈";
+    else if(idx===2) medal=" 🥉";
+
     const row=document.createElement("div");
     row.className="player-row";
-    row.innerHTML=`<div class="pname">${p.name}</div><div class="pkill">${p.kills}</div>`;
+    row.innerHTML=`<div class="pname">#${idx+1} ${p.name}${medal}</div>
+                   <div class="pkill">${p.kills}</div>`;
     list.appendChild(row);
   });
 }
 
 function isTournamentFull(){
-  // count only players with a non-empty name
   const registered = DEFAULT.players.filter(p => p.name && p.name.trim() !== "").length;
   return registered >= MAX_PLAYERS;
 }
@@ -179,18 +207,18 @@ function handleJoinClick(e){
   if(isTournamentFull()){
     alert("Seats are full! Try in the next tournament.");
   } else {
-    window.open(UPI_LINK, "_blank");
+    window.open(JOIN_LINK,"_blank");
   }
 }
 
 function updateJoinButton(){
-  const btn = document.getElementById("joinBtn");
+  const btn=document.getElementById("joinBtn");
   if(isTournamentFull()){
     btn.classList.add("full");
-    btn.textContent = "FULL";
+    btn.textContent="FULL";
   } else {
     btn.classList.remove("full");
-    btn.textContent = "JOIN";
+    btn.textContent="JOIN";
   }
 }
 
