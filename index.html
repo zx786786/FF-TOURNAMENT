@@ -94,7 +94,7 @@
           <li>DATE: <strong>FROM [ 7/9/25 ] TO [ 9/9/25 ]</strong></li>
           <li>TIMING: <strong>FROM [ 9:00 PM ] TO [11:00 PM ]</strong></li>
           <li>POINTS SYSTEM: <br>
-            <strong>• BOOYAH - 3 POINT</strong><br>
+            <strong>• BOOYAH - 5 POINT</strong><br>
             <strong>• KILL - 1 POINT</strong><br>
             <strong>• ROUND WIN - 1 POINT</strong></li>
           <li>ENTRY FEE: <strong> ₹25 Per Person</strong></li>
@@ -129,7 +129,7 @@ const DEFAULT = {
 };
 
 function calculateTeamPoints(team){
-  return team.won * 3 + team.rounds + team.kills;
+  return team.won * 5 + team.rounds + team.kills;
 }
 
 function renderTeams(){
@@ -139,7 +139,7 @@ function renderTeams(){
   const sortedTeams=[...DEFAULT.teams].sort((a,b)=>calculateTeamPoints(b)-calculateTeamPoints(a));
 
   const totalMatches = DEFAULT.teams.reduce((sum,t)=>sum+t.matches,0);
-  const allMatchesCompleted = (totalMatches >= 9);
+  const allMatchesCompleted = (totalMatches >= 18);
 
   sortedTeams.forEach((t,idx)=>{
     const totalPoints=calculateTeamPoints(t);
