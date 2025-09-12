@@ -1,160 +1,621 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Free Fire CS Tournament</title>
+<title>Tournament Hub — CS & BR</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
-  :root{
-    --bg:#0b0b0f; --card:#101014; --muted:#cfc8d9;
-    --accent:#ff3b3b; --glass: rgba(255,255,255,0.02);
-    --radius:14px;
-  }
-  body{
-    margin:0; font-family:Inter, system-ui, Roboto, Arial, sans-serif;
-    background: linear-gradient(180deg,#060607,#0b0b0f 100%); color:#fff;
-  }
-  .banner{position:relative;height:220px;display:flex;align-items:center;justify-content:center;
-    background:url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp') center/cover no-repeat;}
-  .banner::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.45),rgba(0,0,0,0.25));}
-  .banner .title{position:relative;z-index:2;text-align:center;}
-  .banner h1{margin:0;font-size:20px;font-weight:800;text-transform:uppercase;}
-  .banner p{margin:6px 0 0;color:#aaa;font-size:13px;}
+:root{
+  --bg:#0b0b0f; --card:#101014; --muted:#b9b1c3;
+  --accent:#ff3b3b; --glass: rgba(255,255,255,0.02);
+  --radius:14px;
+  --expand-green:#23e762;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Inter, system-ui, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg,#060607,#0b0b0f 100%); color:#fff;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  user-select: none;
+}
+.header{
+  position:relative;
+  background:url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp') center/cover no-repeat;
+  min-height:220px;
+  display:flex;align-items:center;justify-content:center;
+}
+.header::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.25));}
+.header .hero{position:relative;z-index:2;text-align:center;padding:28px 16px;width:100%;max-width:980px;}
+.hero h1{margin:0;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px}
+.hero p{margin:6px 0 0;color:#ddd;font-size:13px}
+.more-btn{
+  position:absolute;left:16px;top:18px;padding:10px 14px;border-radius:10px;
+  background:linear-gradient(45deg,#ffd700,#ffae00);font-weight:800;color:#000;z-index:40;
+  cursor:pointer;border:0;box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+.wrap{max-width:980px;margin:18px auto;padding:0 16px;}
+.hub-card{
+  background:rgba(255,255,255,0.02);border-radius:14px;padding:14px;margin-bottom:12px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  cursor:pointer;transition: background 0.13s;
+}
+.hub-card:active, .hub-card:hover {background:rgba(255,255,255,0.07);}
+.hub-left{flex:1}
+.hub-left h3{margin:0;font-size:18px}
+.hub-left p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.hub-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.status{background:#1b8a44;padding:6px 10px;border-radius:10px;font-weight:700;font-size:13px}
+.point-bubble{background:linear-gradient(90deg,#ff7b7b,#ff3b3b);padding:8px 14px;border-radius:12px;font-weight:800;
+  box-shadow:0 6px 16px rgba(255,60,60,0.12);text-align:center;color:white;font-size:16px;min-width:72px}
+.sidebar-back{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;z-index:60}
+.sidebar{
+  position:fixed;top:0;left:0;height:100%;width:50%;max-width:420px;background:linear-gradient(180deg,#0e0e12,#0b0b0f);z-index:70;padding:18px;border-right:1px solid rgba(255,255,255,0.02);transform:translateX(-110%);transition:transform .28s cubic-bezier(.2,.9,.25,1)
+}
+.sidebar.open{transform:translateX(0)}
+.sidebar h4{margin:8px 0 18px}
+.filter-row{display:flex;flex-direction:column;gap:10px}
+.filter-btn{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center;cursor:pointer;font-weight:700;border:1px solid rgba(255,255,255,0.03)}
+.filter-btn.active{background:linear-gradient(90deg,#ffd700,#ffae00);color:#000}
+.view{display:none}
+.view.active{display:block}
+.card{background:rgba(255,255,255,0.02);border-radius:14px;padding:12px;margin-bottom:12px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);}
+.team-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.team-name{font-weight:800;font-size:18px;}
+.field-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.field{flex:1 1 140px;background:var(--glass);padding:12px;border-radius:10px;font-size:14px;
+  border:1px solid rgba(255,255,255,0.03);}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.field .value{font-weight:700;font-size:16px;}
+.points{background:linear-gradient(90deg,#ff7b7b,#ff3b3b);padding:10px 14px;border-radius:12px;font-weight:800;
+  box-shadow:0 6px 16px rgba(255,60,60,0.12);text-align:center;}
+.players{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.player-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;
+  border-radius:10px;background:rgba(0,0,0,0.25);}
+.player-row .pname{font-weight:700;}
+.player-row .pkill{font-weight:800;color:#ffd6d6;margin-right:8px;}
+.fixtures{margin-top:12px;text-align:left;color:var(--muted);font-size:14px;line-height:1.6;
+  background:rgba(0,0,0,0.18);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
+.fixtures ol{margin:0;padding-left:24px;}
+.fixtures li{font-size:16px;margin-bottom:7px;line-height:1.7;}
+.fixtures strong{font-weight:800;color:#fff;}
+.join-btn{
+  position:fixed;top:20px;right:20px;padding:12px 18px;
+  background:linear-gradient(45deg,#ffd700,#ffae00);color:#000;font-size:16px;font-weight:800;
+  border-radius:10px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.4);z-index:9999;
+  display:none;
+}
+.join-btn.full{background:linear-gradient(45deg,#777,#555);cursor:not-allowed;pointer-events:none;color:#ddd}
 
-  .wrap{max-width:760px;margin:18px auto;padding:0 14px;}
-  .card{background:rgba(255,255,255,0.02);border-radius:14px;padding:12px;margin-bottom:12px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);}
-  .team-head{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-  .team-name{font-weight:800;font-size:18px;}
-  .field-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-  .field{flex:1 1 140px;background:var(--glass);padding:12px;border-radius:10px;font-size:14px;
-    border:1px solid rgba(255,255,255,0.03);}
-  .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;}
-  .field .value{font-weight:700;font-size:16px;}
-  .points{background:linear-gradient(90deg,#ff7b7b,#ff3b3b);padding:10px 14px;border-radius:12px;font-weight:800;
-    box-shadow:0 6px 16px rgba(255,60,60,0.12);text-align:center;}
-
-  .players{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
-  .player-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px;
-    border-radius:10px;background:rgba(0,0,0,0.25);}
-  .player-row .pname{font-weight:700;}
-  .player-row .pkill{font-weight:800;color:#ffd6d6;margin-right:8px;}
-
-  .fixtures{margin-top:12px;text-align:left;color:var(--muted);font-size:14px;line-height:1.6;
-    background:rgba(0,0,0,0.18);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);}
-  .fixtures ol{margin:0;padding-left:24px;}
-  .fixtures li{font-size:16px;margin-bottom:7px;line-height:1.7;}
-  .fixtures strong{font-weight:800;color:#fff;}
-
-  /* Golden Join button */
-  .join-btn{position:fixed;top:20px;right:20px;padding:15px 30px;
-    background:linear-gradient(45deg,#ffd700,#ffae00);color:#fff;font-size:20px;font-weight:bold;
-    border-radius:10px;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,0.4);z-index:9999;}
-  .join-btn.full{background:linear-gradient(45deg,#777,#555);cursor:not-allowed;pointer-events:none;}
+/* --- BR SECTION: your code --- */
+#brTeamsList { max-width:700px; margin:0 auto; }
+.br-team-row {
+  background: #191922;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.18);
+}
+.br-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  cursor: pointer;
+}
+.br-team-left { display: flex; flex-direction: column; }
+.br-team-name { font-weight: 800; font-size: 18px; margin-bottom: 2px; }
+.br-position { font-size: 14px; color: #ccc; }
+.br-actions { display: flex; align-items: center; gap: 10px; }
+.br-points {
+  background: #ff3b3b;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  color: #fff;
+  font-size: 16px;
+}
+.br-expand-btn {
+  background: #23e762;
+  color: #000;
+  font-weight: 900;
+  border-radius: 12px;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform .25s ease;
+}
+.br-expand-btn.open { transform: rotate(180deg); }
+.br-details {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .3s ease, padding .2s;
+  padding: 0 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.br-details.open { padding: 14px 16px; max-height: 500px; }
+.br-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.br-stat-card {
+  background: #15151b;
+  border-radius: 12px;
+  padding: 12px 20px;
+  text-align: center;
+  flex: 1 1 100px;
+}
+.br-stat-label { font-size: 13px; color: #b9b1c3; margin-bottom: 5px; display: block; }
+.br-stat-value { font-size: 20px; font-weight: 800; color: #fff; }
+@media (max-width:700px){
+  .br-main{flex-direction:column;align-items:flex-start;gap:10px;}
+  .br-actions{margin-top:10px;}
+  .br-stats-grid{flex-direction:column;}
+}
+@media (max-width:700px){
+  #brView .br-main { flex-direction: row !important; align-items: center !important; gap: 0 !important; }
+  #brView .br-actions { margin-top: 0 !important; }
+}
+#brView .br-details {
+  background: transparent !important;
+  padding: 0 16px !important;
+  border-radius: 0 !important;
+}
+#brView .br-details.open {
+  padding: 14px 16px !important;
+}
+#brView .br-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  justify-content: stretch;
+}
+#brView .br-stat-card { background:#15151b; border-radius:12px; padding:12px 20px; text-align:center; }
+#brView .br-stat-card:nth-child(5) { grid-column: 1 / -1; }
+.status.soon{ background:#555 !important; color:#ddd !important; }
+.hub-card.disabled{ opacity:0.9; cursor:not-allowed; pointer-events:auto; }
+.hub-card.disabled:active, .hub-card.disabled:hover{ background:rgba(255,255,255,0.02); }
+.winner {
+  margin-top: 6px;
+  font-weight: bold;
+  color: gold;
+}
+.status.register {
+  background: gold !important;
+  color: black !important;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
-  <div class="banner"><div class="title">
-    <h1>FREE FIRE CS TOURNAMENT</h1>
-    <p>3 Teams • 9 Matches • Auto Points</p>
-  </div></div>
-
+  <div class="header">
+    <button class="more-btn" id="moreToggle">MORE</button>
+    <div class="hero">
+      <h1>Tournament Hub</h1>
+      <p>Poster on top • Select tournaments • Mobile friendly</p>
+    </div>
+  </div>
+  <div class="sidebar-back" id="sidebarBack"></div>
+  <div class="sidebar" id="sidebar">
+    <h4>Filter tournaments</h4>
+    <div class="filter-row">
+      <div class="filter-btn active" data-type="all">All</div>
+      <div class="filter-btn" data-type="cs">CS TOURNAMENT</div>
+      <div class="filter-btn" data-type="br">BR TOURNAMENT</div>
+    </div>
+    <div style="height:18px"></div>
+    <div style="color:var(--muted);font-size:13px">Tip: You can filter to show only CS or BR tournaments.</div>
+  </div>
+  <a href="#" class="join-btn" id="globalJoinBtn">JOIN</a>
   <div class="wrap">
-    <div id="teamsContainer"></div>
-
-    <div class="card" id="playersCard">
-      <div class="team-head">
-        <div>
-          <div style="font-weight:800;font-size:16px">🔥 Tournament Top Killers</div>
-          <div style="color:var(--muted);font-size:13px">Best players this season</div>
+    <!-- Home view -->
+    <div id="homeView" class="view active">
+      <!-- CS Ongoing -->
+      <div class="hub-card" data-type="cs" data-target="csView" data-id="1">
+        <div class="hub-left">
+          <h3>Free Fire CS Tournament</h3>
+          <p>3 Teams • 9 Matches • Auto Points</p>
+        </div>
+        <div class="hub-right">
+          <div class="status register">Complete</div>
         </div>
       </div>
-      <div id="playersList" class="players" style="margin-top:10px;"></div>
-    </div>
-
-    <div class="card">
-      <div style="font-weight:800;font-size:16px">📅 Fixtures (9 Matches)</div>
-      <div class="fixtures">
-        <ol>
-          <li>Match 1: <strong>Team A vs Team B</strong></li>
-          <li>Match 2: <strong>Team B vs Team C</strong></li>
-          <li>Match 3: <strong>Team C vs Team A</strong></li>
-          <li>Match 4: <strong>Team A vs Team B</strong></li>
-          <li>Match 5: <strong>Team B vs Team C</strong></li>
-          <li>Match 6: <strong>Team C vs Team A</strong></li>
-          <li>Match 7: <strong>Team A vs Team B</strong></li>
-          <li>Match 8: <strong>Team B vs Team C</strong></li>
-          <li>Match 9: <strong>Team C vs Team A</strong></li>
-        </ol>
+      <!-- BR Ongoing -->
+      <div class="hub-card disabled" data-type="br" data-target="brView" data-id="1">
+        <div class="hub-left">
+          <h3>Free Fire BR Tournament</h3>
+          <p>6 Teams • Battle Royale • Top-10 Scoring</p>
+        </div>
+        <div class="hub-right">
+          <div class="status soon">Coming soon</div>
+        </div>
       </div>
-
-      <div style="font-weight:1000;font-size:16px"> 🌕 TERMS AND CONDITIONS</div>
-      <div class="fixtures">
-        <ol>
-          <li>DATE: <strong>FROM [ 7/9/25 ] TO [ 9/9/25 ]</strong></li>
-          <li>TIMING: <strong>FROM [ 9:00 PM ] TO [11:00 PM ]</strong></li>
-          <li>POINTS SYSTEM: <br>
-            <strong>• BOOYAH - 5 POINT</strong><br>
-            <strong>• KILL - 1 POINT</strong><br>
-            <strong>• ROUND WIN - 1 POINT</strong></li>
-          <li>ENTRY FEE: <strong> ₹25 Per Person</strong></li>
-          <li>Contact: <strong>9837172826 / 9627908856</strong></li>
-          <li>For Joinning : <a id="termsJoinLink" href="#">Click here to Join</a></li>
-        </ol>
+      <!-- Extra BR Coming Soon 1 -->
+      <div class="hub-card disabled" data-type="br" data-target="brView" data-id="2" data-soon="true">
+        <div class="hub-left">
+          <h3>Free Fire BR Tournament 2</h3>
+          <p>Coming Soon</p>
+        </div>
+        <div class="hub-right">
+          <div class="status soon">Coming Soon</div>
+        </div>
+      </div>
+      <!-- Extra BR Coming Soon 2 -->
+      <div class="hub-card disabled" data-type="br" data-target="brView" data-id="3" data-soon="true">
+        <div class="hub-left">
+          <h3>Free Fire BR Tournament 3</h3>
+          <p>Coming Soon</p>
+        </div>
+        <div class="hub-right">
+          <div class="status soon">Coming Soon</div>
+        </div>
+      </div>
+      <!-- Extra CS Coming Soon 1 -->
+      <div class="hub-card disabled" data-type="cs" data-target="csView" data-id="2" data-soon="true">
+        <div class="hub-left">
+          <h3>Free Fire CS Tournament 2</h3>
+          <p>Coming Soon</p>
+        </div>
+        <div class="hub-right">
+          <div class="status soon">Coming Soon</div>
+        </div>
+      </div>
+      <!-- Extra CS Coming Soon 2 -->
+      <div class="hub-card disabled" data-type="cs" data-target="csView" data-id="3" data-soon="true">
+        <div class="hub-left">
+          <h3>Free Fire CS Tournament 3</h3>
+          <p>Coming Soon</p>
+        </div>
+        <div class="hub-right">
+          <div class="status soon">Coming soon</div>
+        </div>
+      </div>
+      <div style="height:36px"></div>
+    </div>
+    <!-- CS View -->
+    <div id="csView" class="view">
+      <button class="more-btn" style="top:16px;left:16px;z-index:1000" id="backHomeBtn1">← Back</button>
+      <div class="card banner-like" style="background:transparent;padding:0;margin-bottom:14px">
+        <div style="position:relative;">
+          <div style="padding:18px 14px 12px">
+            <div id="csTitle" style="font-weight:900;font-size:18px"></div>
+            <div id="csSubtitle" style="color:var(--muted);margin-top:6px"></div>
+          </div>
+        </div>
+      </div>
+      <div id="teamsContainer"></div>
+      <div class="card" id="playersCard">
+        <div class="team-head">
+          <div>
+            <div style="font-weight:800;font-size:16px">🔥 Tournament Top Killers</div>
+            <div style="color:var(--muted);font-size:13px">Best players this season</div>
+          </div>
+        </div>
+        <div id="playersList" class="players" style="margin-top:10px;"></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:800;font-size:16px">📅 Fixtures</div>
+        <div class="fixtures" id="csFixtures"></div>
+        <div style="font-weight:1000;font-size:16px;margin-top:12px"> 🌕 TERMS AND CONDITIONS</div>
+        <div class="fixtures" style="margin-top:8px" id="csTerms"></div>
+      </div>
+    </div>
+    <!-- BR View -->
+    <div id="brView" class="view">
+      <button class="more-btn" style="top:16px;left:16px;z-index:1000" id="backHomeBtn2">← Back</button>
+      <div class="card banner-like" style="background:transparent;padding:0;margin-bottom:14px">
+        <div style="padding:18px 14px 12px">
+          <div id="brTitle" style="font-weight:900;font-size:18px"></div>
+          <div id="brSubtitle" style="color:var(--muted);margin-top:6px"></div>
+        </div>
+      </div>
+      <div id="brTeamsList"></div>
+      <div class="card">
+        <div style="font-weight:800;font-size:16px">📅 Fixtures</div>
+        <div class="fixtures" id="brFixtures"></div>
+        <div style="font-weight:1000;font-size:16px;margin-top:12px"> 🌕 TERMS AND CONDITIONS</div>
+        <div class="fixtures" style="margin-top:8px" id="brTerms"></div>
       </div>
     </div>
   </div>
-
-  <!-- Golden Join Button -->
-  <a href="#" class="join-btn" id="joinBtn">JOIN</a>
-
 <script>
-const JOIN_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSdpkzzI035WKMyvqDR_PRcGpEbqJLuD_kPOsELXiRCrNxLJJA/viewform?usp=header";
-const MAX_PLAYERS = 12;
-
-const DEFAULT = {
-  teams: [
-    {id:'teamA',name:'[ Nalla Gang ]Team A',matches:6,won:6,lost:0,rounds:36,kills:114},
-    {id:'teamB',name:'Team B',matches:6,won:1,lost:5,rounds:20,kills:78},
-    {id:'teamC',name:'[ Zx Warrier ]Team C',matches:6,won:2,lost:4,rounds:19,kills:66}
-  ],
-  players: [
-    {name:'BHURA (Team A)',kills:31},{name:'SAHIL (Team A)',kills:50},
-    {name:'ALTAF (Team A)',kills:35},{name:'SAHID (Team B)',kills:34},
-    {name:'AKBAR (Team B)',kills:12},{name:'AYAN (Team B)',kills:32},
-    {name:'ZAINUL (Team C)',kills:17},{name:'ARSHAD (Team C)',kills:23},
-    {name:'',kills:0},{name:'ABDUL (Team C)',kills:26}
-  ]
+// --- MULTI-TOURNAMENT DATA WITH SEPARATE JOIN LINKS ---
+const CS_TOURNAMENTS = {
+  1: {
+    title: "FREE FIRE CS TOURNAMENT",
+    subtitle: "3 Teams • 9 Matches • Auto Points",
+    joinButtonLink: "https://docs.google.com/forms/d/cs1-join",
+    termsJoinLink: "https://docs.google.com/forms/d/cs1-join",
+    teams: [
+      {id:'teamA',name:'[ Nalla Gang ]Team A',matches:6,won:6,lost:0,rounds:36,kills:114},
+      {id:'teamB',name:'Team B',matches:6,won:1,lost:5,rounds:20,kills:78},
+      {id:'teamC',name:'[ Zx Warrier ]Team C',matches:6,won:2,lost:4,rounds:19,kills:66}
+    ],
+    players: [
+      {name:'ALTAF (Team A)',kills:35},{name:'BHURA (Team A)',kills:31},
+      {name:'SAHIL (Team A)',kills:50},{name:'SAHID (Team B)',kills:34},
+      {name:'AKBAR (Team B)',kills:12},{name:'AYAN (Team B)',kills:32},
+      {name:'ZAINUL (Team C)',kills:17},{name:'ARSHAD (Team C)',kills:23},
+      {name:'ABDUL (Team C)',kills:26}
+    ],
+    fixtures: [
+      "Match 1: Team A vs Team B",
+      "Match 2: Team B vs Team C",
+      "Match 3: Team C vs Team A",
+      "Match 4: Team A vs Team B",
+      "Match 5: Team B vs Team C",
+      "Match 6: Team C vs Team A",
+      "Match 7: Team A vs Team B",
+      "Match 8: Team B vs Team C",
+      "Match 9: Team C vs Team A"
+    ],
+    terms: [
+      "DATE: [ ]",
+      "TIMING: [ ]",
+      "POINTS SYSTEM: • BOOYAH - 5 POINT • KILL - 1 POINT • ROUND WIN - 1 POINT",
+      "ENTRY FEE: ₹25 Per Person",
+      "Contact: 9837172826 / 9627908856",
+      `For Joining : <a class="csTermsJoinLink" href="#">Click here to Join</a>`
+    ],
+    winnerThreshold: 18
+  },
+  2: {
+    title: "FREE FIRE CS TOURNAMENT 2",
+    subtitle: "Teams & Schedule TBA",
+    joinButtonLink: "https://docs.google.com/forms/d/cs2-join",
+    termsJoinLink: "https://docs.google.com/forms/d/cs2-join",
+    teams: [
+      {id:'teamA',name:'CS2 Team A',matches:0,won:0,lost:0,rounds:0,kills:0},
+      {id:'teamB',name:'CS2 Team B',matches:0,won:0,lost:0,rounds:0,kills:0}
+    ],
+    players: [],
+    fixtures: ["Match 1: TBA", "Match 2: TBA"],
+    terms: [
+      "DATE: [ ]",
+      "ENTRY FEE: ₹30 Per Person",
+      "Contact: 9837172826",
+      `For Joining : <a class="csTermsJoinLink" href="#">Click here to Join</a>`
+    ],
+    winnerThreshold: 6
+  }
+  // ...more CS tournaments as needed...
 };
-
-function calculateTeamPoints(team){
-  return team.won * 5 + team.rounds + team.kills;
+const BR_TOURNAMENTS = {
+  1: {
+    title: "FREE FIRE BR TOURNAMENT",
+    subtitle: "6 Teams • Battle Royale • Top-10 Points",
+    joinButtonLink: "https://docs.google.com/forms/d/br1-join",
+    termsJoinLink: "https://docs.google.com/forms/d/br1-join",
+    teams: [
+      {name:'Team A', matches:0, won:0, lost:0, kills:0, top10:0},
+      {name:'Team B', matches:0, won:0, lost:0, kills:0, top10:0},
+      {name:'Team C', matches:0, won:0, lost:0, kills:0, top10:0},
+      {name:'Team D', matches:0, won:0, lost:0, kills:0, top10:0},
+      {name:'Team E', matches:0, won:0, lost:0, kills:0, top10:0},
+      {name:'Team F', matches:0, won:0, lost:0, kills:0, top10:0}
+    ],
+    fixtures: [
+      "Match 1: BR Match 1",
+      "Match 2: BR Match 2",
+      "Match 3: BR Match 3"
+    ],
+    terms: [
+      "DATE: [ ]",
+      "TIMING: [ ]",
+      "POINTS SYSTEM: • BOOYAH - 5 POINT • KILL - 1 POINT • TOP 10 - 2 POINT",
+      "ENTRY FEE: ₹35 Per Person",
+      "Contact: 9837172826 / 9627908856",
+      `For Joining : <a class="brTermsJoinLink" href="#">Click here to Join</a>`
+    ],
+    winnerThreshold: 3
+  },
+  2: {
+    title: "FREE FIRE BR TOURNAMENT 2",
+    subtitle: "Teams & Schedule TBA",
+    joinButtonLink: "https://docs.google.com/forms/d/br2-join",
+    termsJoinLink: "https://docs.google.com/forms/d/br2-join",
+    teams: [
+      {name:'BR2 Team A', matches:2, won:1, lost:1, kills:20, top10:1},
+      {name:'BR2 Team B', matches:2, won:1, lost:1, kills:15, top10:1}
+    ],
+    fixtures: [
+      "Match 1: TBA",
+      "Match 2: TBA"
+    ],
+    terms: [
+      "DATE: [ ]",
+      "ENTRY FEE: ₹40 Per Person",
+      "Contact: 9837172826",
+      `For Joining : <a class="brTermsJoinLink" href="#">Click here to Join</a>`
+    ],
+    winnerThreshold: 2
+  }
+  // ...more BR tournaments as needed...
+};
+// --- LOGIC ---
+let currentCSType = 1;
+let currentBRType = 1;
+let CS_DATA = CS_TOURNAMENTS[1];
+let BR_DATA = BR_TOURNAMENTS[1];
+function calculateTeamPoints_CS(team){ return team.won * 5 + team.rounds + team.kills; }
+function calculatePoints(team) { return (team.won * 5) + (team.kills * 1) + (team.top10 * 2); }
+const CS_MAX_PLAYERS = 12;
+const views = {
+  home: document.getElementById('homeView'),
+  cs: document.getElementById('csView'),
+  br: document.getElementById('brView')
+};
+function renderCSFixturesAndTerms() {
+  const data = CS_TOURNAMENTS[currentCSType];
+  document.getElementById('csFixtures').innerHTML =
+    "<ol>" + (data.fixtures||[]).map(f=>`<li>${f}</li>`).join('') + "</ol>";
+  let termsHtml = (data.terms||[]).map(t=>{
+    return t.replace(/<a[^>]*class="csTermsJoinLink"[^>]*href=["']#[^"']*["'][^>]*>/g,
+      `<a class="csTermsJoinLink" href="${data.termsJoinLink}" target="_blank">`);
+  }).map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('csTerms').innerHTML = "<ol>" + termsHtml + "</ol>";
 }
-
-function renderTeams(){
+function renderBRFixturesAndTerms() {
+  const data = BR_TOURNAMENTS[currentBRType];
+  document.getElementById('brFixtures').innerHTML =
+    "<ol>" + (data.fixtures||[]).map(f=>`<li>${f}</li>`).join('') + "</ol>";
+  let termsHtml = (data.terms||[]).map(t=>{
+    return t.replace(/<a[^>]*class="brTermsJoinLink"[^>]*href=["']#[^"']*["'][^>]*>/g,
+      `<a class="brTermsJoinLink" href="${data.termsJoinLink}" target="_blank">`);
+  }).map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('brTerms').innerHTML = "<ol>" + termsHtml + "</ol>";
+}
+function updateCSTournamentBox() {
+  const data = CS_TOURNAMENTS[currentCSType];
+  const totalMatches = data.teams.reduce((sum, t) => sum + (t.matches || 0), 0);
+  const threshold = data.winnerThreshold || 18;
+  if (totalMatches >= threshold) {
+    const winner = data.teams
+      .map(t => ({name: t.name, points: calculateTeamPoints_CS(t)}))
+      .sort((a, b) => b.points - a.points)[0];
+    const csCard = document.querySelector(`#homeView .hub-card[data-type="cs"][data-id="${currentCSType}"] .hub-left`);
+    if (csCard && winner) {
+      let winnerEl = csCard.querySelector('.winner');
+      if (!winnerEl) {
+        winnerEl = document.createElement('div');
+        winnerEl.className = 'winner';
+        csCard.appendChild(winnerEl);
+      }
+      winnerEl.innerHTML = "👑 Winner 👑 " + winner.name;
+    }
+  }
+}
+function updateBRTournamentBox() {
+  const data = BR_TOURNAMENTS[currentBRType];
+  const totalMatches = (data.teams||[]).reduce((sum, t) => sum + (t.matches || 0), 0);
+  const threshold = data.winnerThreshold || 3;
+  if (totalMatches >= threshold) {
+    const winner = (data.teams||[])
+      .map(t => ({name: t.name, points: calculatePoints(t)}))
+      .sort((a, b) => b.points - a.points)[0];
+    const brCard = document.querySelector(`#homeView .hub-card[data-type="br"][data-id="${currentBRType}"] .hub-left`);
+    if (brCard && winner) {
+      let winnerEl = brCard.querySelector('.winner');
+      if (!winnerEl) {
+        winnerEl = document.createElement('div');
+        winnerEl.className = 'winner';
+        brCard.appendChild(winnerEl);
+      }
+      winnerEl.innerHTML = "👑 Winner 👑 " + winner.name;
+    }
+  }
+}
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  if(name === 'cs') {
+    CS_DATA = CS_TOURNAMENTS[currentCSType];
+    views.cs.classList.add('active');
+    document.getElementById('csTitle').textContent = CS_DATA.title;
+    document.getElementById('csSubtitle').textContent = CS_DATA.subtitle;
+    renderTeams_CS();
+    renderPlayers_CS();
+    renderCSFixturesAndTerms();
+    updateCSJoinButton();
+    updateCSTournamentBox();
+    document.getElementById('globalJoinBtn').style.display='inline-block';
+  } else if(name === 'br'){
+    BR_DATA = BR_TOURNAMENTS[currentBRType];
+    views.br.classList.add('active');
+    document.getElementById('brTitle').textContent = BR_DATA.title;
+    document.getElementById('brSubtitle').textContent = BR_DATA.subtitle;
+    renderTeams_BR();
+    renderBRFixturesAndTerms();
+    updateBRJoinButton();
+    updateBRTournamentBox();
+    document.getElementById('globalJoinBtn').style.display='inline-block';
+  } else {
+    views.home.classList.add('active');
+    document.getElementById('globalJoinBtn').style.display='none';
+    updateHomeJoinButton();
+  }
+}
+function updateHomeJoinButton() {
+  const gbtn = document.getElementById('globalJoinBtn');
+  gbtn.classList.remove('full');
+  gbtn.textContent = 'JOIN';
+}
+const moreToggle = document.getElementById('moreToggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarBack = document.getElementById('sidebarBack');
+function openSidebar(){ sidebar.classList.add('open'); sidebarBack.style.display='block'; }
+function closeSidebar(){ sidebar.classList.remove('open'); sidebarBack.style.display='none'; }
+moreToggle.addEventListener('click',()=>{ openSidebar(); });
+sidebarBack.addEventListener('click',()=>{ closeSidebar(); });
+Array.from(document.querySelectorAll('.filter-btn')).forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const type = btn.dataset.type;
+    filterHome(type);
+    closeSidebar();
+  });
+});
+function filterHome(type){
+  const cards = document.querySelectorAll('.hub-card');
+  cards.forEach(c=>{
+    if(type==='all') c.style.display='flex';
+    else {
+      if(c.dataset.type === type) c.style.display='flex';
+      else c.style.display='none';
+    }
+  });
+}
+document.querySelectorAll('.hub-card').forEach(card=>{
+  if(!card.classList.contains('disabled')) {
+    card.addEventListener('click', e=>{
+      const type = card.dataset.type;
+      const id = parseInt(card.dataset.id||'1');
+      if(type==='cs') {
+        currentCSType = id;
+        showView('cs');
+      } else if(type==='br') {
+        currentBRType = id;
+        showView('br');
+      }
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+});
+document.getElementById('globalJoinBtn').addEventListener('click', (ev)=>{
+  ev.preventDefault();
+  if(views.cs.classList.contains('active')) {
+    window.open(CS_TOURNAMENTS[currentCSType].joinButtonLink, "_blank");
+  } else if(views.br.classList.contains('active')) {
+    window.open(BR_TOURNAMENTS[currentBRType].joinButtonLink, "_blank");
+  } else {
+    window.open("https://docs.google.com/forms/d/e/1FAIpQLSdpkzzI035WKMyvqDR_PRcGpEbqJLuD_kPOsELXiRCrNxLJJA/viewform?usp=header", "_blank");
+  }
+});
+document.getElementById('backHomeBtn1').addEventListener('click',()=>{ showView('home'); });
+document.getElementById('backHomeBtn2').addEventListener('click',()=>{ showView('home'); });
+function renderTeams_CS(){
   const box=document.getElementById('teamsContainer');
   box.innerHTML="";
-
-  const sortedTeams=[...DEFAULT.teams].sort((a,b)=>calculateTeamPoints(b)-calculateTeamPoints(a));
-
-  const totalMatches = DEFAULT.teams.reduce((sum,t)=>sum+t.matches,0);
-  const allMatchesCompleted = (totalMatches >= 18);
-
+  const sortedTeams=[...CS_DATA.teams].sort((a,b)=>calculateTeamPoints_CS(b)-calculateTeamPoints_CS(a));
   sortedTeams.forEach((t,idx)=>{
-    const totalPoints=calculateTeamPoints(t);
+    const totalPoints=calculateTeamPoints_CS(t);
     let medal="";
     if(idx===0) medal=" 🥇";
     else if(idx===1) medal=" 🥈";
     else if(idx===2) medal=" 🥉";
-
-    const crown = (allMatchesCompleted && idx===0) ? " 👑𝑾𝑰𝑵𝑵𝑬𝑹👑" : "";
-
     const card=document.createElement('div');
     card.className="card";
     card.innerHTML=`
       <div class="team-head">
         <div>
-          <div class="team-name">${t.name}${medal}${crown}</div>
+          <div class="team-name">${t.name}${medal}</div>
           <div style="color:#aaa;font-size:13px">Position: <strong>${idx+1}</strong></div>
         </div>
         <div class="points">Pts <div style="font-size:18px">${totalPoints}</div></div>
@@ -173,21 +634,17 @@ function renderTeams(){
     box.appendChild(card);
   });
 }
-
-function renderPlayers(){
+function renderPlayers_CS(){
   const list=document.getElementById("playersList");
   list.innerHTML="";
-
-  const sortedPlayers=DEFAULT.players
+  const sortedPlayers=CS_DATA.players
     .filter(p=>p.name && p.name.trim()!=="")
     .sort((a,b)=>b.kills-a.kills);
-
   sortedPlayers.forEach((p,idx)=>{
     let medal="";
     if(idx===0) medal=" 🥇";
     else if(idx===1) medal=" 🥈";
     else if(idx===2) medal=" 🥉";
-
     const row=document.createElement("div");
     row.className="player-row";
     row.innerHTML=`<div class="pname">#${idx+1} ${p.name}${medal}</div>
@@ -195,40 +652,147 @@ function renderPlayers(){
     list.appendChild(row);
   });
 }
-
-function isTournamentFull(){
-  const registered = DEFAULT.players.filter(p => p.name && p.name.trim() !== "").length;
-  return registered >= MAX_PLAYERS;
+function isCSFull(){
+  const registered = CS_DATA.players.filter(p => p.name && p.name.trim() !== "").length;
+  return registered >= CS_MAX_PLAYERS;
 }
-
-function handleJoinClick(e){
+function handleCSJoin(e){
   e.preventDefault();
-  if(isTournamentFull()){
+  if(isCSFull()){
     alert("Seats are full! Try in the next tournament.");
   } else {
-    window.open(JOIN_LINK,"_blank");
+    window.open(CS_TOURNAMENTS[currentCSType].termsJoinLink,"_blank");
   }
 }
-
-function updateJoinButton(){
-  const btn=document.getElementById("joinBtn");
-  if(isTournamentFull()){
-    btn.classList.add("full");
-    btn.textContent="FULL";
+function updateCSJoinButton(){
+  const gbtn = document.getElementById('globalJoinBtn');
+  gbtn.style.display = 'inline-block';
+  if(isCSFull()){
+    gbtn.classList.add('full'); gbtn.textContent='FULL';
+  } else { gbtn.classList.remove('full'); gbtn.textContent='JOIN'; }
+}
+function renderTeams_BR(){
+  BR_DATA.teams.sort((a,b)=> calculatePoints(b) - calculatePoints(a));
+  const list = document.getElementById('brTeamsList');
+  list.innerHTML = "";
+  BR_DATA.teams.forEach((team,i)=>{
+    const points = calculatePoints(team);
+    const row = document.createElement('div');
+    row.className = 'br-team-row';
+    row.innerHTML = `
+      <div class="br-main" data-idx="${i}">
+        <div class="br-team-left">
+          <div class="br-team-name">${team.name} ${team.medal?team.medal:''}</div>
+          <div class="br-position">Position: ${i+1}</div>
+        </div>
+        <div class="br-actions">
+          <div class="br-points">Pts ${points}</div>
+          <button class="br-expand-btn" data-idx="${i}">&#9660;</button>
+        </div>
+      </div>
+      <div class="br-details">
+        <div class="br-stats-grid">
+          <div class="br-stat-card"><span class="br-stat-label">Matches</span><span class="br-stat-value">${team.matches}</span></div>
+          <div class="br-stat-card"><span class="br-stat-label">Won</span><span class="br-stat-value">${team.won}</span></div>
+          <div class="br-stat-card"><span class="br-stat-label">Lost</span><span class="br-stat-value">${team.lost}</span></div>
+          <div class="br-stat-card"><span class="br-stat-label">Kills</span><span class="br-stat-value">${team.kills}</span></div>
+          <div class="br-stat-card"><span class="br-stat-label">Top 10</span><span class="br-stat-value">${team.top10}</span></div>
+        </div>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+  setupBRAccordion();
+}
+function setupBRAccordion(){
+  const rows = document.querySelectorAll(".br-team-row");
+  rows.forEach((row,idx)=>{
+    const btn = row.querySelector(".br-expand-btn");
+    const details = row.querySelector(".br-details");
+    btn.addEventListener("click", ()=>{
+      rows.forEach((r,i)=>{
+        if(i!==idx){
+          r.querySelector(".br-details").classList.remove("open");
+          r.querySelector(".br-expand-btn").classList.remove("open");
+        }
+      });
+      details.classList.toggle("open");
+      btn.classList.toggle("open");
+    });
+    row.querySelector('.br-main').addEventListener('click', function(e) {
+      if(e.target.classList.contains('br-expand-btn') || e.target.classList.contains('br-points')) return;
+      btn.click();
+    });
+  });
+}
+function handleBRJoin(e){
+  e.preventDefault();
+  window.open(BR_TOURNAMENTS[currentBRType].termsJoinLink,"_blank");
+}
+function updateBRJoinButton(){
+  const gbtn = document.getElementById('globalJoinBtn');
+  gbtn.classList.remove('full');
+  gbtn.textContent = 'JOIN';
+  gbtn.style.display = 'inline-block';
+}
+// Poster logic
+const _origShowView = showView;
+showView = function(name){
+  _origShowView(name);
+  const header = document.querySelector('.header');
+  if(name === 'cs'){
+    header.style.backgroundImage = "url('https://i.postimg.cc/YC0j0rS8/free-fire-character-91873af022.jpg')";
+  } else if(name === 'br'){
+    header.style.backgroundImage = "url('https://i.postimg.cc/rFpPY3m7/290920082505berikut-4-lokasi-pendaratan-terbaik-di-map-bermuda-free-fire.jpg')";
   } else {
-    btn.classList.remove("full");
-    btn.textContent="JOIN";
+    header.style.backgroundImage = "url('https://i.postimg.cc/pTMZbPNX/free-fire-heroic-stance-5r3kxnwqhafdwl6x.webp')";
   }
-}
-
+};
 function init(){
-  renderTeams();
-  renderPlayers();
-  updateJoinButton();
-  document.getElementById("joinBtn").addEventListener("click",handleJoinClick);
-  document.getElementById("termsJoinLink").addEventListener("click",handleJoinClick);
+  renderTeams_CS();
+  renderPlayers_CS();
+  renderCSFixturesAndTerms();
+  renderTeams_BR();
+  renderBRFixturesAndTerms();
+  updateCSTournamentBox();
+  updateBRTournamentBox();
+  showView('home');
 }
 init();
+
+
+// --- Add Tournament 3 datasets safely ---
+CS_TOURNAMENTS[3] = {
+  title: "FREE FIRE CS TOURNAMENT 3",
+  subtitle: "Teams & Schedule TBA",
+  joinButtonLink: "#",
+  termsJoinLink: "#",
+  teams: [
+    {id:'teamA', name:'CS3 Team A', matches:0, won:0, lost:0, rounds:0, kills:0},
+    {id:'teamB', name:'CS3 Team BABA', matches:0, won:0, lost:0, rounds:0, kills:0}
+  ],
+  players: [],
+  fixtures: ["Match 1: TBA", "Match 2: TBA"],
+  terms: ["DATE: [ bdjdnd]","ENTRY FEE: ₹30","Contact: 9837172826"],
+  winnerThreshold: 6
+};
+
+BR_TOURNAMENTS[3] = {
+  title: "FREE FIRE BR TOURNAMENT 3",
+  subtitle: "Teams & Schedule TBA",
+  joinButtonLink: "#",
+  termsJoinLink: "#",
+  teams: [
+    {name:'BR3 Team A', matches:0, won:0, lost:0, kills:0, top10:0},
+    {name:'BR3 Team B', matches:0, won:0, lost:0, kills:0, top10:0}
+  ],
+  fixtures: ["Match 1: TBA", "Match 2: TBA"],
+  terms: ["DATE: [ BSJDNDBD]","ENTRY FEE: ₹40","Contact: 9837172826"],
+  winnerThreshold: 2
+};
+// ----------------------------------------
+
+
 </script>
 </body>
 </html>
