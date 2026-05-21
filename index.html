@@ -20,8 +20,6 @@ color:white;
 overflow-x:hidden;
 }
 
-/* HEADER */
-
 .header{
 height:220px;
 background:url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1400&auto=format&fit=crop') center/cover;
@@ -55,8 +53,6 @@ margin-top:10px;
 color:#ddd;
 }
 
-/* MORE BUTTON */
-
 .more-btn{
 position:fixed;
 top:20px;
@@ -70,8 +66,6 @@ border-radius:12px;
 font-weight:900;
 cursor:pointer;
 }
-
-/* SIDEBAR */
 
 .sidebar{
 position:fixed;
@@ -105,19 +99,11 @@ font-weight:700;
 cursor:pointer;
 }
 
-.filter-btn:hover{
-background:#2b2b38;
-}
-
-/* WRAP */
-
 .wrap{
 padding:18px;
 max-width:950px;
 margin:auto;
 }
-
-/* TEAM */
 
 .team-row{
 background:#15151b;
@@ -168,8 +154,6 @@ font-weight:900;
 cursor:pointer;
 }
 
-/* DETAILS */
-
 .team-details{
 display:none;
 padding:18px;
@@ -200,8 +184,6 @@ font-size:22px;
 font-weight:900;
 }
 
-/* SQUAD */
-
 .squad-box{
 display:none;
 background:#111118;
@@ -215,24 +197,14 @@ padding:14px;
 border-top:1px solid rgba(255,255,255,0.05);
 }
 
-.blank-photo{
+.player-photo{
 width:58px;
 height:58px;
 border-radius:50%;
+object-fit:cover;
+border:2px solid rgba(255,255,255,0.1);
 background:#2a2a35;
-border:2px solid rgba(255,255,255,0.08);
 }
-
-.squad-player h4{
-margin-bottom:5px;
-}
-
-.squad-player p{
-color:#bbb;
-font-size:14px;
-}
-
-/* POSTER */
 
 .poster-card{
 background:#15151b;
@@ -245,8 +217,6 @@ margin-top:20px;
 margin-bottom:16px;
 font-size:22px;
 }
-
-/* HORIZONTAL PLAYER CARDS */
 
 .horizontal-scroll{
 display:flex;
@@ -279,8 +249,6 @@ line-height:1.8;
 color:#ddd;
 }
 
-/* POINTS TABLE */
-
 .points-table{
 width:100%;
 border-collapse:collapse;
@@ -298,8 +266,6 @@ text-align:center;
 border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
-/* FIXTURES */
-
 .fixture-match{
 background:#1b1b24;
 padding:14px;
@@ -307,8 +273,6 @@ border-radius:14px;
 margin-bottom:12px;
 font-size:16px;
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -329,13 +293,9 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- MORE BUTTON -->
-
 <button class="more-btn" onclick="toggleSidebar()">
 MORE
 </button>
-
-<!-- SIDEBAR -->
 
 <div class="sidebar" id="sidebar">
 
@@ -351,8 +311,6 @@ Points Table
 
 </div>
 
-<!-- HEADER -->
-
 <div class="header">
 
 <div class="hero">
@@ -365,13 +323,11 @@ Points Table
 
 </div>
 
-<!-- MAIN -->
-
 <div class="wrap">
 
-<!-- TOURNAMENT SECTION -->
-
 <div id="teamsSection">
+
+<!-- MI -->
 
 <!-- ================= MI ================= -->
 
@@ -395,9 +351,7 @@ Mumbai Indians
 0 PTS
 </div>
 
-<button class="expand-btn">
-+
-</button>
+<button class="expand-btn">+</button>
 
 <button class="squad-btn" onclick="toggleSquad(event,'miSquad')">
 SQUAD
@@ -437,14 +391,77 @@ SQUAD
 
 <div class="squad-box" id="miSquad">
 
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
+<!-- PLAYER 1 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 2 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 3 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 4 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 5 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 6 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 7 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 8 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
 
 </div>
 
@@ -472,9 +489,7 @@ Chennai Super Kings
 0 PTS
 </div>
 
-<button class="expand-btn">
-+
-</button>
+<button class="expand-btn">+</button>
 
 <button class="squad-btn" onclick="toggleSquad(event,'cskSquad')">
 SQUAD
@@ -505,7 +520,7 @@ SQUAD
 
 <div class="stat-card">
 <label>NRR</label>
-<span>0.00</span>
+<span>0</span>
 </div>
 
 </div>
@@ -514,14 +529,77 @@ SQUAD
 
 <div class="squad-box" id="cskSquad">
 
-<div class="squad-player"><div class="blank-photo"></div><div><h4>ZAINUL(C) </h4><p>Right-Handed Batsman•Right-Arm Medium Bowler</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>AKBAR </h4><p>Right-Handed Batsman•Right-Arm Medium Bowler</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>JAHID </h4><p>Right-Handed Batsman</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>JUNAID </h4><p>Right-Handed Batsman•Right-Arm Medium Bowler</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>FARMAN </h4><p>Right-Handed Batsman•Right-Arm Medium Bowler</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>ANNU </h4><p>Right-Handed Batsman•Right-Arm Medium Bowler</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>ANUJ </h4><p>Right-Handed Batsman</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>ARSAD </h4><p>Right-Handed Batsman</p></div></div>
+<!-- PLAYER 1 -->
+<div class="squad-player">
+<img class="player-photo" src="https://i.postimg.cc/MK50KcLK/0a08d8b6-cb64-4539-ab54-6a727f5f4fec.webp">
+<div>
+<h4>ZAINUL (C)</h4>
+<p>Right-Handed Batsman • Right-Arm Medium Bowler</p>
+</div>
+</div>
+
+<!-- PLAYER 2 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>AKBAR</h4>
+<p>Right-Handed Batsman • Right-Arm Medium Bowler</p>
+</div>
+</div>
+
+<!-- PLAYER 3 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>JAHID</h4>
+<p>Right-Handed Batsman</p>
+</div>
+</div>
+
+<!-- PLAYER 4 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>JUNAID</h4>
+<p>Right-Handed Batsman • Right-Arm Medium Bowler</p>
+</div>
+</div>
+
+<!-- PLAYER 5 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>FARMAN</h4>
+<p>Right-Handed Batsman • Right-Arm Medium Bowler</p>
+</div>
+</div>
+
+<!-- PLAYER 6 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>ANNU</h4>
+<p>Right-Handed Batsman • Right-Arm Medium Bowler</p>
+</div>
+</div>
+
+<!-- PLAYER 7 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>ANUJ</h4>
+<p>Right-Handed Batsman</p>
+</div>
+</div>
+
+<!-- PLAYER 8 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>ARSAD</h4>
+<p>Right-Handed Batsman</p>
+</div>
+</div>
 
 </div>
 
@@ -549,9 +627,7 @@ Royal Challengers Bengaluru
 0 PTS
 </div>
 
-<button class="expand-btn">
-+
-</button>
+<button class="expand-btn">+</button>
 
 <button class="squad-btn" onclick="toggleSquad(event,'rcbSquad')">
 SQUAD
@@ -591,29 +667,91 @@ SQUAD
 
 <div class="squad-box" id="rcbSquad">
 
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
-<div class="squad-player"><div class="blank-photo"></div><div><h4>Unknown Player</h4><p>Player Information Pending</p></div></div>
+<!-- PLAYER 1 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
 
+<!-- PLAYER 2 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 3 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 4 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 5 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 6 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 7 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
+</div>
+
+<!-- PLAYER 8 -->
+<div class="squad-player">
+<img class="player-photo" src="">
+<div>
+<h4>Unknown Player</h4>
+<p>Player Information Pending</p>
+</div>
 </div>
 
 </div>
 
+</div>
 <!-- TOP RUN -->
 
 <div class="poster-card">
 
 <h3>🔥 Top Run Scorers</h3>
 
-<div class="horizontal-scroll">
+<div class="horizontal-scroll" id="runs-container">
 
 <div class="player-row">
-<strong>#1 Unknown Player</strong>
+<strong>#1 Unknown</strong>
 <p>
 Matches: 0<br>
 Runs: 0<br>
@@ -625,7 +763,7 @@ Average: 0
 </div>
 
 <div class="player-row">
-<strong>#2 Unknown Player</strong>
+<strong>#2 Unknown</strong>
 <p>
 Matches: 0<br>
 Runs: 0<br>
@@ -637,7 +775,19 @@ Average: 0
 </div>
 
 <div class="player-row">
-<strong>#3 Unknown Player</strong>
+<strong>#3 Unknown</strong>
+<p>
+Matches: 0<br>
+Runs: 0<br>
+Strike Rate: 0<br>
+4s: 0<br>
+6s: 0<br>
+Average: 0
+</p>
+</div>
+
+<div class="player-row">
+<strong>#4 Unknown</strong>
 <p>
 Matches: 0<br>
 Runs: 0<br>
@@ -658,10 +808,10 @@ Average: 0
 
 <h3>🎯 Top Wicket Takers</h3>
 
-<div class="horizontal-scroll">
+<div class="horizontal-scroll" id="wickets-container">
 
 <div class="player-row">
-<strong>#1 Unknown Player</strong>
+<strong>#1 Unknown</strong>
 <p>
 Matches: 0<br>
 Wickets: 0<br>
@@ -671,7 +821,7 @@ Average: 0
 </div>
 
 <div class="player-row">
-<strong>#2 Unknown Player</strong>
+<strong>#2 Unknown</strong>
 <p>
 Matches: 0<br>
 Wickets: 0<br>
@@ -681,7 +831,17 @@ Average: 0
 </div>
 
 <div class="player-row">
-<strong>#3 Unknown Player</strong>
+<strong>#3 Unknown</strong>
+<p>
+Matches: 0<br>
+Wickets: 0<br>
+Economy: 0<br>
+Average: 0
+</p>
+</div>
+
+<div class="player-row">
+<strong>#4 Unknown</strong>
 <p>
 Matches: 0<br>
 Wickets: 0<br>
@@ -700,29 +860,12 @@ Average: 0
 
 <h3>📅 Match Fixtures</h3>
 
-<div class="fixture-match">
-Match 1 → MI vs CSK
-</div>
-
-<div class="fixture-match">
-Match 2 → CSK vs RCB
-</div>
-
-<div class="fixture-match">
-Match 3 → RCB vs MI
-</div>
-
-<div class="fixture-match">
-Match 4 → MI vs CSK
-</div>
-
-<div class="fixture-match">
-Match 5 → CSK vs RCB
-</div>
-
-<div class="fixture-match">
-Match 6 → RCB vs MI
-</div>
+<div class="fixture-match">Match 1 → MI vs CSK</div>
+<div class="fixture-match">Match 2 → CSK vs RCB</div>
+<div class="fixture-match">Match 3 → RCB vs MI</div>
+<div class="fixture-match">Match 4 → MI vs CSK</div>
+<div class="fixture-match">Match 5 → CSK vs RCB</div>
+<div class="fixture-match">Match 6 → RCB vs MI</div>
 
 </div>
 
@@ -735,13 +878,8 @@ Match 6 → RCB vs MI
 <ol style="padding-left:20px;line-height:2;color:#ddd;">
 
 <li>Tournament Start Date: 25 May 2026</li>
-
 <li>Entry Fee: ₹50 Per Player</li>
-
 <li>Every Team Must Report Before Match Time</li>
-
-<li>Any Misbehaviour Can Lead To Disqualification</li>
-
 <li>Organizer Decision Will Be Final</li>
 
 </ol>
@@ -758,43 +896,7 @@ Match 6 → RCB vs MI
 
 <h3>🏏 Points Table</h3>
 
-<table class="points-table">
-
-<tr>
-<th>Team</th>
-<th>M</th>
-<th>W</th>
-<th>L</th>
-<th>PTS</th>
-<th>NRR</th>
-</tr>
-
-<tr>
-<td>MI</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0.00</td>
-</tr>
-
-<tr>
-<td>CSK</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0.00</td>
-</tr>
-
-<tr>
-<td>RCB</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0.00</td>
-</tr>
+<table class="points-table" id="pointsTableBody">
 
 </table>
 
@@ -806,6 +908,134 @@ Match 6 → RCB vs MI
 
 <script>
 
+const teams = [
+
+{
+name:"MI",
+matches:0,
+won:0,
+loss:0,
+points:0,
+nrr:00
+},
+
+{
+name:"CSK",
+matches:0,
+won:0,
+loss:0,
+points:0,
+nrr:00
+},
+
+{
+name:"RCB",
+matches:0,
+won:0,
+loss:0,
+points:0,
+nrr:0
+}
+
+];
+
+// --- AUTO SORTING SYSTEM FOR YOUR CARD DATA VALUES ---
+function sortPlayerCards() {
+  // 1. Automatically sort the Run Scorers by reading your inner HTML text data
+  const runsContainer = document.getElementById("runs-container");
+  if (runsContainer) {
+    const runRows = Array.from(runsContainer.getElementsByClassName("player-row"));
+    
+    runRows.sort((a, b) => {
+      const runsA = parseInt(a.innerHTML.match(/Runs:\s*(\d+)/)?.[1] || 0);
+      const runsB = parseInt(b.innerHTML.match(/Runs:\s*(\d+)/)?.[1] || 0);
+      return runsB - runsA; 
+    });
+    
+    runsContainer.innerHTML = "";
+    runRows.forEach((row, index) => {
+      const strongTag = row.querySelector("strong");
+      if (strongTag) {
+        strongTag.innerHTML = strongTag.innerHTML.replace(/^#\d+/, `#${index + 1}`);
+      }
+      runsContainer.appendChild(row);
+    });
+  }
+
+  // 2. Automatically sort the Wicket Takers by reading your inner HTML text data
+  const wicketsContainer = document.getElementById("wickets-container");
+  if (wicketsContainer) {
+    const wicketRows = Array.from(wicketsContainer.getElementsByClassName("player-row"));
+    
+    wicketRows.sort((a, b) => {
+      const wicketsA = parseInt(a.innerHTML.match(/Wickets:\s*(\d+)/)?.[1] || 0);
+      const wicketsB = parseInt(b.innerHTML.match(/Wickets:\s*(\d+)/)?.[1] || 0);
+      return wicketsB - wicketsA; 
+    });
+    
+    wicketsContainer.innerHTML = "";
+    wicketRows.forEach((row, index) => {
+      const strongTag = row.querySelector("strong");
+      if (strongTag) {
+        strongTag.innerHTML = strongTag.innerHTML.replace(/^#\d+/, `#${index + 1}`);
+      }
+      wicketsContainer.appendChild(row);
+    });
+  }
+}
+
+function updatePointsTable(){
+
+teams.sort((a,b)=>{
+
+if(b.points !== a.points){
+return b.points - a.points;
+}
+
+return b.nrr - a.nrr;
+
+});
+
+let html = `
+
+<tr>
+<th>Pos</th>
+<th>Team</th>
+<th>M</th>
+<th>W</th>
+<th>L</th>
+<th>PTS</th>
+<th>NRR</th>
+</tr>
+
+`;
+
+teams.forEach((team,index)=>{
+
+html += `
+
+<tr>
+<td>#${index+1}</td>
+<td>${team.name}</td>
+<td>${team.matches}</td>
+<td>${team.won}</td>
+<td>${team.loss}</td>
+<td>${team.points}</td>
+<td>${team.nrr.toFixed(2)}</td>
+</tr>
+
+`;
+
+});
+
+document.getElementById("pointsTableBody").innerHTML = html;
+
+}
+
+// Run updates automatically on page setup loads
+updatePointsTable();
+sortPlayerCards();
+
 function toggleSidebar(){
 
 document.getElementById("sidebar").classList.toggle("active");
@@ -814,9 +1044,9 @@ document.getElementById("sidebar").classList.toggle("active");
 
 function showTournament(){
 
-document.getElementById("teamsSection").style.display = "block";
+document.getElementById("teamsSection").style.display="block";
 
-document.getElementById("pointsSection").style.display = "none";
+document.getElementById("pointsSection").style.display="none";
 
 document.getElementById("sidebar").classList.remove("active");
 
@@ -824,9 +1054,9 @@ document.getElementById("sidebar").classList.remove("active");
 
 function showPoints(){
 
-document.getElementById("teamsSection").style.display = "none";
+document.getElementById("teamsSection").style.display="none";
 
-document.getElementById("pointsSection").style.display = "block";
+document.getElementById("pointsSection").style.display="block";
 
 document.getElementById("sidebar").classList.remove("active");
 
@@ -834,12 +1064,12 @@ document.getElementById("sidebar").classList.remove("active");
 
 function toggleTeam(id){
 
-const box = document.getElementById(id);
+const box=document.getElementById(id);
 
-if(box.style.display === "block"){
-box.style.display = "none";
+if(box.style.display==="block"){
+box.style.display="none";
 }else{
-box.style.display = "block";
+box.style.display="block";
 }
 
 }
@@ -848,21 +1078,21 @@ function toggleSquad(event,id){
 
 event.stopPropagation();
 
-const squad = document.getElementById(id);
+const squad=document.getElementById(id);
 
-if(squad.style.display === "block"){
-squad.style.display = "none";
+if(squad.style.display==="block"){
+squad.style.display="none";
 }else{
-squad.style.display = "block";
+squad.style.display="block";
 }
 
 }
 
-window.onclick = function(e){
+window.onclick=function(e){
 
-const sidebar = document.getElementById("sidebar");
+const sidebar=document.getElementById("sidebar");
 
-const btn = document.querySelector(".more-btn");
+const btn=document.querySelector(".more-btn");
 
 if(
 !sidebar.contains(e.target)
